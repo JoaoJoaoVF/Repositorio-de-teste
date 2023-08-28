@@ -2,7 +2,7 @@
 
 ## Objetivo:
 
-O objetivo deste projeto é desenvolver um sistema que incentive e facilite o compartilhamento fácil de materiais acadêmicos entre os alunos. O sistema procurará integrar funções de avaliação e sistemas de acesso que simplifiquem a experiência geral. Isso permitirá que os alunos não apenas compartilhem o material, mas também o avaliem, criando um ambiente colaborativo. Com isso, o projeto visa preencher lacunas existentes no campo acadêmico e facilitar o acesso mais amplo e fácil ao conhecimento para estudantes universitários. Batizamos nosso sistema como NOMEDOSISTEMA
+O objetivo deste projeto é desenvolver um sistema que incentive e facilite o compartilhamento fácil de materiais acadêmicos entre os alunos. O sistema procurará integrar funções de avaliação e sistemas de acesso que simplifiquem a experiência geral. Isso permitirá que os alunos não apenas compartilhem o material, mas também o avaliem, criando um ambiente colaborativo. Adicionalmente, a plataforma permitirá a troca de perspectivas sobre docentes e disciplinas. Com isso, o projeto visa preencher lacunas existentes no campo acadêmico e facilitar o acesso mais amplo e fácil ao conhecimento para estudantes universitários. Batizamos nosso sistema como Unishare.
 
 ##
 
@@ -28,7 +28,7 @@ Entre as principais features da plataforma estão:
 
 #### Back-end
 
--
+- André Alves de Souza Barros
 
 ##
 

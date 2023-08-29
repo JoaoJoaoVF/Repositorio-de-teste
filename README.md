@@ -2,7 +2,13 @@
 
 ## Objetivo:
 
-O objetivo deste projeto é desenvolver um sistema que incentive e facilite o compartilhamento fácil de materiais acadêmicos entre os alunos. O sistema procurará integrar funções de avaliação e sistemas de acesso que simplifiquem a experiência geral. Isso permitirá que os alunos não apenas compartilhem o material, mas também o avaliem, criando um ambiente colaborativo. Adicionalmente, a plataforma permitirá a troca de perspectivas sobre docentes e disciplinas. Com isso, o projeto visa preencher lacunas existentes no campo acadêmico e facilitar o acesso mais amplo e fácil ao conhecimento para estudantes universitários. Batizamos nosso sistema como Unishare.
+O objetivo central do projeto nomeado como "Unishare", é desenvolver uma plataforma inovadora e colaborativa que incentive e simplifique o compartilhamento de materiais acadêmicos entre os estudantes universitários. Através da integração de funcionalidades avançadas de avaliação e sistemas de acesso intuitivos, buscamos aprimorar significativamente a experiência geral dos usuários.
+
+Nosso projeto visa criar um ambiente onde os alunos não apenas compartilham seus materiais acadêmicos, mas também têm a oportunidade de avaliar a qualidade e utilidade desses recursos. Isso resultará em uma comunidade colaborativa onde o conhecimento é compartilhado de forma mais eficaz.
+
+Além disso, a plataforma "Unishare" proporcionará um espaço para que os alunos troquem perspectivas e opiniões sobre professores e disciplinas. Isso permitirá que os estudantes tomem decisões informadas sobre suas escolhas acadêmicas, melhorando a qualidade de sua jornada educacional.
+
+Ao preencher as lacunas existentes no cenário acadêmico, nosso projeto tem como missão facilitar o acesso amplo e simplificado ao conhecimento para os universitários. Através da plataforma Unishare, esperamos empoderar os alunos, permitindo que eles colaborem, aprendam uns com os outros e tomem decisões informadas, elevando assim o padrão da educação superior.
 
 ##
 
@@ -29,7 +35,7 @@ Entre as principais features da plataforma estão:
 #### Back-end
 
 - André Alves de Souza Barros
-
+- Vinícius de Oliveira Silva
 ##
 
 ### Tecnologias

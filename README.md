@@ -10,10 +10,7 @@ Além disso, a plataforma "Unishare" proporcionará um espaço para que os aluno
 
 Ao preencher as lacunas existentes no cenário acadêmico, nosso projeto tem como missão facilitar o acesso amplo e simplificado ao conhecimento para os universitários. Através da plataforma Unishare, esperamos empoderar os alunos, permitindo que eles colaborem, aprendam uns com os outros e tomem decisões informadas, elevando assim o padrão da educação superior.
 
-##
-
-### Principais Features
-
+## Principais Features
 
 Entre as principais features da plataforma estão:
 
@@ -23,10 +20,7 @@ Entre as principais features da plataforma estão:
 - Escrita de avaliações
 - Seção de discussões
 
-
-##
-
-### Membros da equipe:
+## Membros da equipe:
 
 #### Front-end
 
@@ -36,9 +30,9 @@ Entre as principais features da plataforma estão:
 
 - André Alves de Souza Barros
 - Vinícius de Oliveira Silva
-##
 
-### Tecnologias
+
+## Tecnologias
 
 ### Front-end
 
@@ -62,5 +56,68 @@ Entre as principais features da plataforma estão:
 	Framework: Express
 	Banco de Dados: MySQL
 
-##
+## Backlog do Produto
+
+1. Como aluno, eu gostaria de me cadastrar na plataforma.
+2. Como aluno, eu gostaria de fazer login na plataforma.
+3. Como aluno, eu gostaria de cadastrar uma disciplina.
+4. Como aluno, eu gostaria de enviar um arquivo.
+5. Como aluno, eu gostaria de escrever uma avaliação sobre um professor.
+6. Como aluno, eu gostaria de escrever uma avaliação sobre uma disciplina.
+7. Como aluno, eu gostaria de avaliar um resumo.
+8. Como aluno, eu gostaria de comentar em um arquivo.
+9. Como aluno, eu gostaria de pesquisar avaliações de professores de uma disciplina.
+10. Como aluno, eu gostaria de pesquisar avaliações de uma disciplina.
+11. Como aluno, eu gostaria de criar um tópico no fórum de uma disciplina.
+12. Como aluno, eu gostaria de responder um tópico em um fórum.
+13. Como moderador, eu gostaria de avaliar os arquivos submetidos.
+14. Como moderador, gostaria de gerenciar avaliações pendentes de aprovação.
+
+## Backlog do sprint
+
+### História #1: Como aluno, eu gostaria de me cadastrar na plataforma:
+
+#### Tarefas e responsáveis:
+	- Implementar versão inicial da tela principal [João]
+	- Implementar tela de cadastro [João]
+	- Criar uma rota para receber os dados do formulário de cadastro [Vinícius]
+	- Criar um novo registro de aluno no banco de dados [Vinícius]
+	- Retornar uma resposta ao cliente informando se o cadastro foi bem-sucedido [Vinícius]
+
+### História #2:  Como aluno, eu gostaria de fazer login na plataforma:
+
+#### Tarefas e responsáveis:
+	- Implementar tela de login [João]
+	- Implementar dashboard  [Vinícius]
+	- Implementar a lógica de autenticação [Vinícius]
+	- Gerar um token de acesso e enviá-lo de volta ao usuário [Vinícius]
+
+### História #3:  Como moderador, gostaria de gerenciar avaliações pendentes de aprovação:
+
+#### Tarefas e responsáveis:
+	- Criar uma interface de administração para moderadores [João]
+	- Criar uma rota para listar avaliações pendentes de aprovação [André] 
+	- Exibir a lista de avaliações pendentes na interface de administração [João]
+	- Criar uma rota no backend para aprovar uma avaliação específica [André] 
+	- Atualizar o status da avaliação no banco de dados para refletir a aprovação  [André] 
+
+### História #4:  Como aluno, eu gostaria de escrever uma avaliação sobre um professor:
+
+#### Tarefas e responsáveis:
+	- Criar uma página para escrever avaliações de professores [João]
+	- Implementar um formulário para avaliação [Vinícius]	
+	- Criar uma rota para receber os dados da avaliação [Vinícius]
+	- Criar um novo registro de avaliação no banco de dados, associando-o ao professor [Vinícius]
+
+### História #5:  Como aluno, eu gostaria de pesquisar avaliações de professores de uma disciplina:
+
+#### Tarefas e responsáveis:
+	- Criar uma interface de pesquisa [João]
+	- Criar uma rota para receber a consulta de pesquisa [André]
+	- Implementar uma função que envia a consulta de pesquisa para o servidor [André] 
+	- Realizar a pesquisa no banco de dados com base nos critérios da consulta [André] 
+	- Retornar os resultados da pesquisa para o cliente [André] 
+	- Exibir os resultados da pesquisa na interface [João]
+
+
 

@@ -119,5 +119,47 @@ Entre as principais features da plataforma estão:
 	- Retornar os resultados da pesquisa para o cliente [André] 
 	- Exibir os resultados da pesquisa na interface [João]
 
+### História #6:  Como aluno, eu gostaria de escrever uma avaliação sobre uma disciplina:
 
+#### Tarefas e responsáveis:
 
+- Criar a Página de Avaliação []
+- Validação de Dados da Avaliação []
+- Integração com o Banco de Dados []
+- Página de Visualização de Avaliações []
+- Implementar Autenticação e Autorização []
+
+  ### História #7:  Como aluno, eu gostaria de avaliar um resumo:
+
+#### Tarefas e responsáveis:
+
+- Criar Rotas para Avaliações []
+- Criar um Controlador de Avaliações []
+- Integrar Autenticação []
+- Atualizar a Interface do Usuário []
+
+### História #8:  Como aluno, eu gostaria de comentar em um arquivo.:
+
+#### Tarefas e responsáveis:
+
+- Criar Interface de Comentários []
+- Conectar Comentários aos Arquivos []
+- Autenticação de Usuários []
+- Atualizar a Interface do Usuário []
+
+  ### História #9:  Como aluno, eu gostaria de pesquisar avaliações de professores de uma disciplina.:
+
+#### Tarefas e responsáveis:
+
+- Configurar a Interface de Pesquisa []
+- Desenvolver a Lógica de Pesquisa []
+-  Classificação e Filtragem de Resultados []
+- Integrar com o Sistema de Avaliações []
+
+  ### História #10: Como aluno, eu gostaria de pesquisar avaliações de uma disciplina :
+
+#### Tarefas e responsáveis:
+  - CriarInterface de Pesquisa []
+- Integração de Dados de Avaliações []
+- Criar uma página de detalhes para cada disciplina []
+- Funcionalidades Adicionais e Filtros []

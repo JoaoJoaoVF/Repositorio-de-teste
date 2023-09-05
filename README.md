@@ -153,13 +153,14 @@ Entre as principais features da plataforma estão:
 
 - Configurar a Interface de Pesquisa []
 - Desenvolver a Lógica de Pesquisa []
--  Classificação e Filtragem de Resultados []
+- Classificação e Filtragem de Resultados []
 - Integrar com o Sistema de Avaliações []
 
   ### História #10: Como aluno, eu gostaria de pesquisar avaliações de uma disciplina :
 
 #### Tarefas e responsáveis:
-  - CriarInterface de Pesquisa []
+
+- CriarInterface de Pesquisa []
 - Integração de Dados de Avaliações []
 - Criar uma página de detalhes para cada disciplina []
 - Funcionalidades Adicionais e Filtros []

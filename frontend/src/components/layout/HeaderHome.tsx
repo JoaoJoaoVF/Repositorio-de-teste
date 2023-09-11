@@ -18,26 +18,26 @@ export default function App() {
                 <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li className="navegacao">
                         <a href="#" className="nav-link px-2 link-secondary">Inicio</a>
-                        </li>
+                    </li>
                     <li className="navegacao">
                         <a href="/sonbre" className="nav-link px-2 link-dark">Sobre</a>
-                        </li>
+                    </li>
                     <li className="navegacao">
                         <a href="/funcionalidades" className="nav-link px-2 link-dark">Funcionalidades</a>
-                        </li>
+                    </li>
                     <li className="navegacao">
                         <a href="/faqs" className="nav-link px-2 link-dark">FAQs</a>
-                        </li>
+                    </li>
                 </ul>
 
                 <div className="col-md-3 text-end">
-                    <button type="button" className="btn btn-outline-primary me-2">
-                        <Link to="/login" className="text-white">
+                    <button type="button" className="btn btn-outline-primary me-2 " style={{ backgroundColor: '#173FBC' }}>
+                        <Link to="/login" className="text-white text-decoration-none">
                             <span>Login</span>
                         </Link>
                     </button>
-                    <button type="button" className="btn btn-primary">
-                        <Link to="/cadastro" className="text-white">
+                    <button type="button" className="btn btn-primary" style={{ backgroundColor: '#9582A1' }}>
+                        <Link to="/cadastro" className="text-white text-decoration-none">
                             <span>Cadastro</span>
                         </Link>
                     </button>

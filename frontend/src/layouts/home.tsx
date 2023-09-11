@@ -1,4 +1,5 @@
-import Footer from "../components/layout/Footer"
+import Footer from "../components/layout/FooterHome"
+import Header from "../components/layout/HeaderHome"
 import useDirection from "../hooks/useDirection"
 
 export default function Home(props: {
@@ -10,8 +11,9 @@ export default function Home(props: {
 
     return (
         <div className="">
+            <Header />
             <div>
-            {props.children}
+                {props.children}
             </div>
             <Footer />
         </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import 'chart.js/auto';
 
-import Logo from '../assets/img/DraftLogoWithoutText.png';
+import Logo from '../assets/img/DraftLogoWithoutBackground.png';
 
 export default function About() {
     const [email, setEmail] = useState('');
@@ -32,7 +32,7 @@ export default function About() {
                     <div className='d-flex justify-content-center'> {/* Centralize a imagem */}
                         <img src={Logo} alt="logo" role="img" />
                     </div>
-                    <h1 className="h3 mb-5 fw-normal text-center text-#9582A1">Login do Usuário</h1>
+                    <h1 className="h3 mb-5 fw-normal text-center text-#9582A1">Faça aqui seu login 🎉</h1>
 
                     <div className="form-floating">
                         <input

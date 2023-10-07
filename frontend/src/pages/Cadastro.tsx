@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'chart.js/auto';
 
@@ -15,11 +15,12 @@ export default function SignUp() {
         ddd: '',
         celular: '',
         universidade: '',
+        periodo: '1', // Defina o período inicial como '1' (1º período)
         dataNascimento: '',
         CPF: '',
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -109,7 +110,6 @@ export default function SignUp() {
             alert("O número de CPF não é válido.");
             return;
         }
-
 
         // Resto do código para o envio dos dados do formulário
     };
@@ -258,7 +258,7 @@ export default function SignUp() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <div className="form-floating mb-1">
                                 <input
                                     type="text"
@@ -270,7 +270,33 @@ export default function SignUp() {
                                     onChange={handleChange}
                                     required
                                 />
-                                <label htmlFor="Digite sua universidade">Digite sua universidade</label>
+                                <label htmlFor="universidade">Digite sua universidade</label>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-floating mb-1">
+                                <select
+                                    className="form-select"
+                                    id="periodo"
+                                    name="periodo"
+                                    value={formData.periodo}
+                                    onChange={handleChange}
+                                >
+                                    <option value="1">1º período</option>
+                                    <option value="2">2º período</option>
+                                    <option value="3">3º período</option>
+                                    <option value="4">4º período</option>
+                                    <option value="5">5º período</option>
+                                    <option value="6">6º período</option>
+                                    <option value="7">7º período</option>
+                                    <option value="8">8º período</option>
+                                    <option value="9">9º período</option>
+                                    <option value="10">10º período</option>
+                                    <option value="11">11º período</option>
+                                    <option value="12">12º período</option>
+                                    <option value="mais-de-12">Mais de 12º período</option>
+                                </select>
+                                <label htmlFor="periodo">Selecione o período</label>
                             </div>
                         </div>
                     </div>

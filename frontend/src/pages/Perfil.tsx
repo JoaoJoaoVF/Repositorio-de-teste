@@ -1,8 +1,9 @@
+//dashboard component
 import React, { useState, useEffect } from 'react';
 import SideBarDashboard from '../components/layout/SideBarDashboard';
 import HeaderDashboard from '../components/layout/HeaderDashboard';
 
-export default function Dashboard(props: {
+export default function Perfil(props: {
     children: React.ReactNode
 }) {
 

@@ -10,7 +10,7 @@ export default function App() {
         <div>
             <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-1 border-bottom">
 
-                <a href="/" className="d-flex align-items-center col-md-3 mb-md-0 text-dark text-decoration-none">
+                <a href="/" className="d-flex align-items-center col-md-3 mb-md-0 text-dark text-decoration-none -mt-2">
                     <img src={Logo} alt="logo" width="142" height="70" role="img" aria-label="Logo" />
 
                 </a>

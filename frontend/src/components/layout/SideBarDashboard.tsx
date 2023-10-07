@@ -1,0 +1,48 @@
+import React from 'react';
+import { Nav, NavItem, Dropdown, NavDropdown } from 'react-bootstrap';
+
+import '../../assets/css/Main.css'
+
+export default function SideBarDashboard() {
+    return (
+        <div className='col-md-1 ' style={{ height: '100%' }}>
+            <div className="d-flex flex-column flex-shrink-0 p-0">
+                <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                </a>
+                <Nav className="flex-column mb-auto">
+                    <NavItem className='navegacao'>
+                        <Nav.Link href="/dashboard" active>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#173FBC" d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z" /><path fill="#173FBC" d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97Z" /></svg>
+
+                            Inicio
+                        </Nav.Link>
+                    </NavItem>
+                    <NavItem className='navegacao'>
+                        <Nav.Link href="/disciplinas" active>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#173FBC" d="M4 3h2v18H4zm14 0H7v18h11c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 6h-6V8h6v1zm0-2h-6V6h6v1z" /></svg>
+                            Disciplinas
+                        </Nav.Link>
+                    </NavItem>
+                    <NavItem className='navegacao'>
+                        <Nav.Link href="/professores" active>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 12 12"><path fill="#173FBC" d="M5.16 2.189a1.962 1.962 0 0 1 1.68 0l4.874 2.309a.5.5 0 0 1 .008.9l-4.85 2.406a1.962 1.962 0 0 1-1.744 0L1 5.756V8a.5.5 0 0 1-1 0V4.975a.502.502 0 0 1 .286-.477l4.874-2.31ZM2 7.369V9a.5.5 0 0 0 .147.354l.002.003l.023.021l.06.056a6.738 6.738 0 0 0 1.012.745C3.912 10.58 4.877 11 6 11c1.123 0 2.088-.42 2.757-.821a6.738 6.738 0 0 0 1.012-.745l.06-.056l.016-.016l.006-.006l.001-.001l.002-.001A.5.5 0 0 0 10 9V7.368L7.316 8.7a2.962 2.962 0 0 1-2.632 0L2 7.368Z" /></svg>
+                            Professores
+                        </Nav.Link>
+                    </NavItem>
+                    <NavItem className='navegacao'>
+                        <Nav.Link href="/foruns" active>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="#173FBC" d="M17 4v7a2 2 0 0 1-2 2H4v1a2 2 0 0 0 2 2h10l4 4V6a2 2 0 0 0-2-2zM6 10H0v6z" /><rect width="16" height="12" fill="#173FBC" rx="2" /></svg>
+                            Fóruns
+                        </Nav.Link>
+                    </NavItem>
+                    {/* <NavItem className='navegacao'>
+                        <Nav.Link href="/faqs" active>
+                            <svg className="bi pe-none me-2" width="16" height="16"></svg>
+                            FAQs
+                        </Nav.Link>
+                    </NavItem> */}
+                </Nav>
+            </div>
+        </div>
+    );
+}

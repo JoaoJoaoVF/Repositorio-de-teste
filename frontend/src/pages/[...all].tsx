@@ -4,7 +4,7 @@ import '../assets/css/Main.css'
 
 export default function NotFoundPage() {
     return (
-        <div className="not-found-container">
+        <div className="not-found-container bg-#7988b7">
             <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
                 <div className="text-center p-4">
                     <h1 className="mb-4 text-black" >

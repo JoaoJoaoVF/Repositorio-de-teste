@@ -10,7 +10,6 @@ import '../../assets/css/Main.css';
 
 export default function MissaoValoresVisao() {
     useEffect(() => {
-        // Inicialize o tooltip
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.map(function (tooltipTriggerEl) {
             new bootstrap.Tooltip(tooltipTriggerEl);

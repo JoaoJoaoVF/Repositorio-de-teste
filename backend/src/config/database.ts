@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('nome_do_banco', 'seu_usuario', 'sua_senha', {
+const sequelize = new Sequelize('unishare', 'unishare', '1234', {
   host: 'localhost',
   dialect: 'mysql',
   port: 3306,

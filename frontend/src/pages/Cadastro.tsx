@@ -12,11 +12,9 @@ export default function SignUp() {
         confirmarEmail: '',
         senha: '',
         confirmarSenha: '',
-        ddd: '',
-        celular: '',
         universidade: '',
         periodo: '1', // Defina o período inicial como '1' (1º período)
-        dataNascimento: '',
+        usuario: '',
         CPF: '',
     });
 
@@ -33,30 +31,9 @@ export default function SignUp() {
         return senhaRegex.test(senha);
     };
 
-    const dataNascimentoValida = (dataNascimento: string) => {
-        const hoje = new Date();
-        const dataNascimentoDate = new Date(dataNascimento);
-        let idade = hoje.getFullYear() - dataNascimentoDate.getFullYear();
-        const mesAtual = hoje.getMonth();
-        const diaAtual = hoje.getDate();
-
-        if (mesAtual < dataNascimentoDate.getMonth() || (mesAtual === dataNascimentoDate.getMonth() && diaAtual < dataNascimentoDate.getDate())) {
-            idade--;
-        }
-
-        return idade >= 17;
-    };
-
-    const dddValido = (ddd: string) => {
-        // Aceita DDDs válidos no Brasil, que são dois dígitos numéricos.
-        const dddRegex = /^\d{2}$/;
-        return dddRegex.test(ddd);
-    };
-
-    const celularValido = (celular: string) => {
-        // Aceita números de celular com formato: 9XXXX-XXXX ou 9 XXXX-XXXX
-        const celularRegex = /^9\s?\d{8}$/;
-        return celularRegex.test(celular);
+    const usuarioValida = (usuario: string) => {
+        const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return senhaRegex.test(usuario);
     };
 
     const cpfValido = (CPF: string) => {
@@ -87,24 +64,11 @@ export default function SignUp() {
         }
 
         // Verifique se a data de nascimento é válida
-        if (!dataNascimentoValida(formData.dataNascimento)) {
+        if (!usuarioValida(formData.usuario)) {
             alert("Você deve ter mais de 17 anos para se cadastrar.");
             return;
         }
 
-        // Verifique se o celular é válido
-        if (!dddValido(formData.ddd)) {
-            alert("O numero de DDD não é válido.");
-            return;
-        }
-
-        // Verifique se o celular é válido
-        if (!celularValido(formData.celular)) {
-            alert("O numero de telefone não é válido.");
-            return;
-        }
-
-        // Verifique se o CPF é válido
         // Verifique se o CPF é válido
         if (!cpfValido(formData.CPF)) {
             alert("O número de CPF não é válido.");
@@ -174,7 +138,7 @@ export default function SignUp() {
                                     onChange={handleChange}
                                     required
                                 />
-                                <label htmlFor="email">E-mail</label>
+                                <label htmlFor="email">E-mail Institucional</label>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -189,7 +153,7 @@ export default function SignUp() {
                                     onChange={handleChange}
                                     required
                                 />
-                                <label htmlFor="confirmarEmail">Confirmar E-mail</label>
+                                <label htmlFor="confirmarEmail">Confirmar E-mail Institucional</label>
                             </div>
                         </div>
                     </div>
@@ -225,39 +189,7 @@ export default function SignUp() {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-1">
-                            <div className="form-floating mb-1">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="ddd"
-                                    name="ddd"
-                                    placeholder="DDD"
-                                    value={formData.ddd}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <label htmlFor="ddd">DDD</label>
-                            </div>
-                        </div>
-                        <div className="col-md-11">
-                            <div className="form-floating mb-1">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="celular"
-                                    name="celular"
-                                    placeholder="Número"
-                                    value={formData.celular}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <label htmlFor="celular">Celular (SOMENTE NUMEROS)</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
+                                        <div className="row">
                         <div className="col-md-6">
                             <div className="form-floating mb-1">
                                 <input
@@ -319,15 +251,16 @@ export default function SignUp() {
                         <div className="col-md-6">
                             <div className="form-floating mb-1">
                                 <input
-                                    type="date"
+                                    type="text"
                                     className="form-control"
-                                    id="dataNascimento"
-                                    name="dataNascimento"
-                                    value={formData.dataNascimento}
+                                    id="usuario"
+                                    name="usuario"
+                                    placeholder="Usuario"
+                                    value={formData.usuario}
                                     onChange={handleChange}
                                     required
                                 />
-                                <label htmlFor="dataNascimento">Data de Nascimento</label>
+                                <label htmlFor="usuario">Usúario</label>
                             </div>
                         </div>
                     </div>

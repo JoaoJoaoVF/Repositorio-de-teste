@@ -195,7 +195,7 @@ export default function TabelaDisciplinas() {
                 <TextField
                     className='col-md-10'
                     id="filled-basic"
-                    label="Pesquise por nome, disciplina, semestre ou departamento"
+                    label="Pesquise por nome da disciplina ou departamento"
                     variant="outlined"
                     value={searchQuery}
                     onChange={handleSearchInputChange}
@@ -203,8 +203,8 @@ export default function TabelaDisciplinas() {
                 <Button
                     variant="contained"
                     onClick={handleOpenFilterDialog}
-                    className='col-md-2'
-                    style={{ backgroundColor: '#7988b7', color: 'white' }} // Estilização do botão
+                    className='col-md-2 mt-2'
+                    style={{ backgroundColor: '#7988b7', color: 'white' }} 
                 >
                     Filtrar
                 </Button>

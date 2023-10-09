@@ -190,7 +190,7 @@ export default function TabelaProfessores() {
                 <Button
                     variant="contained"
                     onClick={handleOpenFilterDialog}
-                    className='col-md-2'
+                    className='col-md-2 mt-2'
                     style={{ backgroundColor: '#7988b7', color: 'white' }} // Estilização do botão
                 >
                     Filtrar

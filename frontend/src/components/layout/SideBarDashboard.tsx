@@ -30,6 +30,12 @@ export default function SideBarDashboard() {
                         </Nav.Link>
                     </NavItem>
                     <NavItem className='navegacao'>
+                        <Nav.Link href="/arquivos" active>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#173fbc" d="M4 20q-.825 0-1.413-.588T2 18V6q0-.825.588-1.413T4 4h6l2 2h8q.825 0 1.413.588T22 8H4v10l2.4-8h17.1l-2.575 8.575q-.2.65-.738 1.038T19 20H4Z" /></svg>
+                            Arquivos
+                        </Nav.Link>
+                    </NavItem>
+                    <NavItem className='navegacao'>
                         <Nav.Link href="/foruns" active>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="#173FBC" d="M17 4v7a2 2 0 0 1-2 2H4v1a2 2 0 0 0 2 2h10l4 4V6a2 2 0 0 0-2-2zM6 10H0v6z" /><rect width="16" height="12" fill="#173FBC" rx="2" /></svg>
                             Fóruns

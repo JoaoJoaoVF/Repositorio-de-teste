@@ -12,13 +12,14 @@ import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import TablePagination from '@mui/material/TablePagination';
 
-import FiltroProfessores from './FiltroProfessores';
-import NovaAvaliacaoProfessor from './NovaAvaliacaoProfessor';
+import FiltroDisciplinas from './FiltroDisciplinas';
+import NovaAvaliacaoDisciplinas from './NovaAvaliacaoDisciplinas';
 
 interface Row {
-    nomeProfessor: string;
+    disciplinaOfertada: string;
+    semestre: string;
     quantidadeAvaliacoes: number;
-    nota: number;
+    notaMedia: number;
     departamento: string;
 }
 
@@ -41,7 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-export default function TabelaProfessores() {
+export default function TabelaDisciplinas() {
     const [rows, setRows] = useState<Row[]>([]);
     const [initialRows, setInitialRows] = useState<Row[]>([]);
 
@@ -53,19 +54,21 @@ export default function TabelaProfessores() {
     // Simule dados de exemplo
     const exemploDados: Row[] = [
         {
-            nomeProfessor: 'Luiza de Melo',
+            disciplinaOfertada: 'Matemática',
+            semestre: '2023/2',
             quantidadeAvaliacoes: 10,
-            nota: 8.5,
+            notaMedia: 8.5,
             departamento: 'Ciências Exatas',
         },
         {
-            nomeProfessor: 'Lucas Avelar',
+            disciplinaOfertada: 'História',
+            semestre: '2023/1',
             quantidadeAvaliacoes: 8,
-            nota: 7.2,
+            notaMedia: 7.2,
             departamento: 'Ciências Humanas',
         },
+        // Adicione mais linhas conforme necessário
     ];
-
 
     // Esqueleto para importar os dados do back
     // useEffect(() => {
@@ -81,7 +84,7 @@ export default function TabelaProfessores() {
     //         });
     // }, []);
 
-    
+
     useEffect(() => {
         // Simule a carga de dados do back-end
         setRows(exemploDados);
@@ -116,23 +119,32 @@ export default function TabelaProfessores() {
         setSortConfig({ key, direction });
 
         const sortedRows = [...rows].sort((a, b) => {
-            if (key === 'nomeProfessor') {
+            if (key === 'semestre') {
+                const semA = a.semestre.split('/').map(Number);
+                const semB = b.semestre.split('/').map(Number);
+
                 if (direction === 'ascending') {
-                    return a.nomeProfessor.localeCompare(b.nomeProfessor);
+                    if (semA[0] === semB[0]) {
+                        return semA[1] - semB[1];
+                    }
+                    return semA[0] - semB[0];
                 } else {
-                    return b.nomeProfessor.localeCompare(a.nomeProfessor);
-                }
-            } else if (key === 'nota') {
-                if (direction === 'ascending') {
-                    return a.nota - b.nota;
-                } else {
-                    return b.nota - a.nota;
+                    if (semA[0] === semB[0]) {
+                        return semB[1] - semA[1];
+                    }
+                    return semB[0] - semA[0];
                 }
             } else if (key === 'quantidadeAvaliacoes') {
                 if (direction === 'ascending') {
                     return a.quantidadeAvaliacoes - b.quantidadeAvaliacoes;
                 } else {
                     return b.quantidadeAvaliacoes - a.quantidadeAvaliacoes;
+                }
+            } else if (key === 'notaMedia') {
+                if (direction === 'ascending') {
+                    return a.notaMedia - b.notaMedia;
+                } else {
+                    return b.notaMedia - a.notaMedia;
                 }
             } else {
                 if (direction === 'ascending') {
@@ -154,7 +166,8 @@ export default function TabelaProfessores() {
 
         const filteredRows = initialRows.filter((row) => {
             return (
-                row.nomeProfessor.toLowerCase().includes(query.toLowerCase()) ||
+                row.disciplinaOfertada.toLowerCase().includes(query.toLowerCase()) ||
+                row.semestre.toLowerCase().includes(query.toLowerCase()) ||
                 row.departamento.toLowerCase().includes(query.toLowerCase())
             );
         });
@@ -182,7 +195,7 @@ export default function TabelaProfessores() {
                 <TextField
                     className='col-md-10'
                     id="filled-basic"
-                    label="Pesquise por nome do professor ou departamento"
+                    label="Pesquise por nome, disciplina, semestre ou departamento"
                     variant="outlined"
                     value={searchQuery}
                     onChange={handleSearchInputChange}
@@ -197,25 +210,25 @@ export default function TabelaProfessores() {
                 </Button>
             </div>
             <TableContainer component={Paper}>
-                <Table aria-label="tabela-professores">
+                <Table aria-label="tabela-disciplinas">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>
                                 <TableSortLabel
-                                    active={sortConfig.key === 'nomeProfessor'}
-                                    direction={sortConfig.key === 'nomeProfessor' ? sortConfig.direction : 'ascending'}
-                                    onClick={() => sortData('nomeProfessor')}
+                                    active={sortConfig.key === 'disciplinaOfertada'}
+                                    direction={sortConfig.key === 'disciplinaOfertada' ? sortConfig.direction : 'ascending'}
+                                    onClick={() => sortData('disciplinaOfertada')}
                                 >
-                                    Nome do Professor
+                                    Disciplina Ofertada
                                 </TableSortLabel>
                             </StyledTableCell>
                             <StyledTableCell>
                                 <TableSortLabel
-                                    active={sortConfig.key === 'nota'}
-                                    direction={sortConfig.key === 'nota' ? sortConfig.direction : 'ascending'}
-                                    onClick={() => sortData('nota')}
+                                    active={sortConfig.key === 'semestre'}
+                                    direction={sortConfig.key === 'semestre' ? sortConfig.direction : 'ascending'}
+                                    onClick={() => sortData('semestre')}
                                 >
-                                    Nota média
+                                    Semestre
                                 </TableSortLabel>
                             </StyledTableCell>
                             <StyledTableCell>
@@ -224,7 +237,16 @@ export default function TabelaProfessores() {
                                     direction={sortConfig.key === 'quantidadeAvaliacoes' ? sortConfig.direction : 'ascending'}
                                     onClick={() => sortData('quantidadeAvaliacoes')}
                                 >
-                                    Quantidade de avaliações
+                                    Quantidade de Avaliações
+                                </TableSortLabel>
+                            </StyledTableCell>
+                            <StyledTableCell>
+                                <TableSortLabel
+                                    active={sortConfig.key === 'notaMedia'}
+                                    direction={sortConfig.key === 'notaMedia' ? sortConfig.direction : 'ascending'}
+                                    onClick={() => sortData('notaMedia')}
+                                >
+                                    Nota Média
                                 </TableSortLabel>
                             </StyledTableCell>
                             <StyledTableCell>
@@ -241,9 +263,10 @@ export default function TabelaProfessores() {
                     <TableBody>
                         {rowsOnPage.map((row, index) => (
                             <StyledTableRow key={index}>
-                                <TableCell>{row.nomeProfessor}</TableCell>
-                                <TableCell>{row.nota}</TableCell>
+                                <TableCell>{row.disciplinaOfertada}</TableCell>
+                                <TableCell>{row.semestre}</TableCell>
                                 <TableCell>{row.quantidadeAvaliacoes}</TableCell>
+                                <TableCell>{row.notaMedia}</TableCell>
                                 <TableCell>{row.departamento}</TableCell>
                             </StyledTableRow>
                         ))}
@@ -259,14 +282,14 @@ export default function TabelaProfessores() {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <FiltroProfessores
+            <FiltroDisciplinas
                 open={openFilterDialog}
                 onClose={handleCloseFilterDialog}
                 onApplyFilters={handleApplyFilters}
                 onClearFilters={clearFilters}
                 rows={initialRows}
             />
-            <NovaAvaliacaoProfessor rows={rows} />
+            <NovaAvaliacaoDisciplinas rows={rows} />
         </div>
     );
 }

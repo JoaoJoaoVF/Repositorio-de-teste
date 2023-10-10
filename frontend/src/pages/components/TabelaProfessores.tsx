@@ -14,6 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 
 import FiltroProfessores from './FiltroProfessores';
 import NovaAvaliacaoProfessor from './NovaAvaliacaoProfessor';
+import DetalhesProfessores from './DetalhesProfessores';
 
 interface Row {
     nomeProfessor: string;
@@ -44,6 +45,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function TabelaProfessores() {
     const [rows, setRows] = useState<Row[]>([]);
     const [initialRows, setInitialRows] = useState<Row[]>([]);
+    const [showDetails, setShowDetails] = useState<Row | null>(null);
+
 
     const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' }>({
         key: '',
@@ -66,6 +69,12 @@ export default function TabelaProfessores() {
         },
     ];
 
+
+
+    const handleTableRowClick = (disciplina: Row) => {
+        // Abre o pop-up de detalhes quando uma linha da tabela é clicada
+        setShowDetails(disciplina);
+    };
 
     // Esqueleto para importar os dados do back
     // useEffect(() => {
@@ -240,7 +249,7 @@ export default function TabelaProfessores() {
                     </TableHead>
                     <TableBody>
                         {rowsOnPage.map((row, index) => (
-                            <StyledTableRow key={index}>
+                            <StyledTableRow key={index} onClick={() => handleTableRowClick(row)}>
                                 <TableCell>{row.nomeProfessor}</TableCell>
                                 <TableCell>{row.nota}</TableCell>
                                 <TableCell>{row.quantidadeAvaliacoes}</TableCell>
@@ -266,6 +275,9 @@ export default function TabelaProfessores() {
                 onClearFilters={clearFilters}
                 rows={initialRows}
             />
+            {showDetails && (
+                <DetalhesProfessores disciplina={showDetails} onClose={() => setShowDetails(null)} />
+            )}
             <NovaAvaliacaoProfessor rows={rows} />
         </div>
     );

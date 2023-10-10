@@ -14,6 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 
 import FiltroDisciplinas from './FiltroDisciplinas';
 import NovaAvaliacaoDisciplinas from './NovaAvaliacaoDisciplinas';
+import DetalhesDisciplina from './DetalhesDisciplina';
 
 interface Row {
     disciplinaOfertada: string;
@@ -45,6 +46,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function TabelaDisciplinas() {
     const [rows, setRows] = useState<Row[]>([]);
     const [initialRows, setInitialRows] = useState<Row[]>([]);
+    const [showDetails, setShowDetails] = useState<Row | null>(null);
 
     const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' }>({
         key: '',
@@ -69,6 +71,11 @@ export default function TabelaDisciplinas() {
         },
         // Adicione mais linhas conforme necessário
     ];
+
+    const handleTableRowClick = (disciplina: Row) => {
+        // Abre o pop-up de detalhes quando uma linha da tabela é clicada
+        setShowDetails(disciplina);
+    };
 
     // Esqueleto para importar os dados do back
     // useEffect(() => {
@@ -204,7 +211,7 @@ export default function TabelaDisciplinas() {
                     variant="contained"
                     onClick={handleOpenFilterDialog}
                     className='col-md-2 mt-2'
-                    style={{ backgroundColor: '#7988b7', color: 'white' }} 
+                    style={{ backgroundColor: '#7988b7', color: 'white' }}
                 >
                     Filtrar
                 </Button>
@@ -262,7 +269,7 @@ export default function TabelaDisciplinas() {
                     </TableHead>
                     <TableBody>
                         {rowsOnPage.map((row, index) => (
-                            <StyledTableRow key={index}>
+                            <StyledTableRow key={index} onClick={() => handleTableRowClick(row)}>
                                 <TableCell>{row.disciplinaOfertada}</TableCell>
                                 <TableCell>{row.semestre}</TableCell>
                                 <TableCell>{row.quantidadeAvaliacoes}</TableCell>
@@ -289,6 +296,9 @@ export default function TabelaDisciplinas() {
                 onClearFilters={clearFilters}
                 rows={initialRows}
             />
+            {showDetails && (
+                <DetalhesDisciplina disciplina={showDetails} onClose={() => setShowDetails(null)} />
+            )}
             <NovaAvaliacaoDisciplinas rows={rows} />
         </div>
     );

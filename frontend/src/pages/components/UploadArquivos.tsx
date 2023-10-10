@@ -8,12 +8,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
 
-interface Disciplina {
+import ModalUploadArquivo from './ModalUploadArquivo';
+
+interface Arquivo {
     id: number;
-    nome: string;
+    nomeArquivo: string;
+    materia: string;
     professor: string;
+    semestre: string;
+    tipo: string;
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -36,53 +40,51 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function UploadArquivos() {
-    const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [arquivos, setArquivos] = useState<Arquivo[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         // Simule a carga de dados do backend
-        const exemploDisciplinas: Disciplina[] = [
-            { id: 1, nome: 'Matemática', professor: 'Professor 1' },
-            { id: 2, nome: 'História', professor: 'Professor 2' },
-            // Adicione mais disciplinas conforme necessário
+        const exemploArquivos: Arquivo[] = [
+            { id: 1, nomeArquivo: 'Exemplo', materia: 'Matemática', professor: 'Professor 1', semestre: '2023/2', tipo: 'Lista' },
+            { id: 2, nomeArquivo: 'Apresentacao', materia: 'História', professor: 'Professor 2', semestre: '2023/1', tipo: 'Slide' },
+            // Adicione mais arquivos conforme necessário
         ];
 
-        setDisciplinas(exemploDisciplinas);
+        setArquivos(exemploArquivos);
     }, []);
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
-        if (files && files.length > 0) {
-            setSelectedFile(files[0]);
-        } else {
-            setSelectedFile(null);
-        }
+    const handleUploadFile = (file: File) => {
+        // Implemente a lógica de upload do arquivo aqui
+        console.log('Arquivo selecionado:', file.name);
     };
 
-    const handleUpload = () => {
-        if (selectedFile) {
-            // Aqui você pode implementar a lógica para fazer upload do arquivo para o backend
-            console.log('Arquivo selecionado:', selectedFile.name);
-            // Limpar o arquivo selecionado após o upload
-            setSelectedFile(null);
-        }
+    const handleTableRowClick = () => {
+        // Abra um pop-up em branco quando uma linha da tabela for clicada
+        window.open('', 'Popup', 'width=600,height=400');
     };
 
     return (
         <div className='container-fluid'>
             <TableContainer component={Paper}>
-                <Table aria-label="tabela-disciplinas">
+                <Table aria-label="tabela-arquivos">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell>Nome da Disciplina</StyledTableCell>
+                            <StyledTableCell>Nome do Arquivo</StyledTableCell>
+                            <StyledTableCell>Matéria</StyledTableCell>
                             <StyledTableCell>Professor</StyledTableCell>
+                            <StyledTableCell>Semestre</StyledTableCell>
+                            <StyledTableCell>Tipo</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {disciplinas.map((disciplina) => (
-                            <StyledTableRow key={disciplina.id}>
-                                <TableCell>{disciplina.nome}</TableCell>
-                                <TableCell>{disciplina.professor}</TableCell>
+                        {arquivos.map((arquivo) => (
+                            <StyledTableRow key={arquivo.id} onClick={handleTableRowClick}>
+                                <TableCell>{arquivo.nomeArquivo}</TableCell>
+                                <TableCell>{arquivo.materia}</TableCell>
+                                <TableCell>{arquivo.professor}</TableCell>
+                                <TableCell>{arquivo.semestre}</TableCell>
+                                <TableCell>{arquivo.tipo}</TableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>
@@ -90,22 +92,21 @@ export default function UploadArquivos() {
             </TableContainer>
 
             <div className='text-right mb-1'>
-                <Input
-                    type="file"
-                    id="fileInput"
-                    accept=".pdf, .doc, .docx" // Aceita apenas arquivos PDF, DOC e DOCX
-                    onChange={handleFileChange}
-                />
                 <Button
                     variant="contained"
-                    onClick={handleUpload}
+                    onClick={() => setIsModalOpen(true)}
                     className='col-md-2'
-                    style={{ backgroundColor: '#7988b7', color: 'white' }} // Estilização do botão
-                    disabled={!selectedFile} // Desabilita o botão se nenhum arquivo estiver selecionado
+                    style={{ backgroundColor: '#7988b7', color: 'white' }}
                 >
                     Upload de Arquivo
                 </Button>
             </div>
+
+            <ModalUploadArquivo
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onUpload={handleUploadFile}
+            />
         </div>
     );
 }

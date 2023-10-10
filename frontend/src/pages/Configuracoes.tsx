@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import SideBarDashboard from '../components/layout/SideBarDashboard';
-import HeaderDashboard from '../components/layout/HeaderDashboard';
+import { useState, useEffect } from 'react';
+import DashboardLayout from '../layouts/dashboard';
+import NaoImplementado from './components/NaoImplementado'
+import 'chart.js/auto';
 
-export default function Configuracoes(props: {
-    children: React.ReactNode
-}) {
+export default function Configuracoes() {
 
-
-    return <div className='h-full'>
-
-        <div className="flex flex-col w-full overflow-x-hidden">
-            <HeaderDashboard />
-            <div className="flex">
-                <SideBarDashboard />
-                <main className="w-full">
-                    {props.children}
-                </main>
-            </div>
-        </div>
-
-    </div >
+    return (
+        <DashboardLayout >
+            <NaoImplementado />
+        </DashboardLayout>
+    );
 }
-

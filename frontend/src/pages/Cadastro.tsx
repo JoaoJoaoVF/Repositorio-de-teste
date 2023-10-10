@@ -63,12 +63,6 @@ export default function SignUp() {
             return;
         }
 
-        // Verifique se a data de nascimento é válida
-        if (!usuarioValida(formData.usuario)) {
-            alert("Você deve ter mais de 17 anos para se cadastrar.");
-            return;
-        }
-
         // Verifique se o CPF é válido
         if (!cpfValido(formData.CPF)) {
             alert("O número de CPF não é válido.");
@@ -189,7 +183,7 @@ export default function SignUp() {
                             </div>
                         </div>
                     </div>
-                                        <div className="row">
+                    <div className="row">
                         <div className="col-md-6">
                             <div className="form-floating mb-1">
                                 <input

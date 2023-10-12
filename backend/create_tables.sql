@@ -11,9 +11,13 @@ CREATE TABLE IF NOT EXISTS alunos (
 -- Criação de um índice na coluna "email" para melhorar o desempenho de consultas
 CREATE INDEX idx_email ON alunos (email);
 
--- Inserção de dados de amostra
-INSERT INTO alunos (nome, email, senha, curso, universidade)
-VALUES
-  ('Exemplo 1', 'exemplo1@email.com', 'senha123', 'Curso A', 'Universidade X'),
-  ('Exemplo 2', 'exemplo2@email.com', 'senha456', 'Curso B', 'Universidade Y');
-
+-- Criação da tabela "avaliacoes_professores" para avaliações de professores
+CREATE TABLE IF NOT EXISTS avaliacoes_professores (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  aluno_id INT, -- ID do aluno que escreveu a avaliação
+  professor_nome VARCHAR(255), -- Nome do professor avaliado
+  professor_materia VARCHAR(255), -- Matéria do professor avaliado
+  professor_universidade VARCHAR(255), -- Universidade do professor avaliado
+  avaliacao_texto TEXT, -- Texto da avaliação
+  aprovada TINYINT(1) DEFAULT 0 -- 0 represents false, 1 represents true
+);

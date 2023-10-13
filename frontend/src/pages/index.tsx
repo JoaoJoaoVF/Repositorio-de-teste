@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Home from '../layouts/home';
-import DiferenciaisDoUnishare from './components/DiferenciaisDoUnishare';
-import BemVindoAoUnishare from './components/BemVindoAoUnishare';
-import MissaoValoresVisao from './components/MissaoValoresVisao';
-import ObjetivosUnishare from './components/ObjetivosUnishare';
+import DiferenciaisDoUnishare from './components/Index/DiferenciaisDoUnishare';
+import BemVindoAoUnishare from './components/Index/BemVindoAoUnishare';
+import MissaoValoresVisao from './components/Index/MissaoValoresVisao';
+import ObjetivosUnishare from './components/Index/ObjetivosUnishare';
 
 import '../assets/css/Main.css';
 

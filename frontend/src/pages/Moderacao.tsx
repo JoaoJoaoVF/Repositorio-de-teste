@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import DashboardLayout from '../layouts/dashboard';
-import TabelaAprovacaoAvalicao from './components/TabelaAprovacaoAvalicao'
+import TabelaAprovacaoAvalicao from './components/Moderacao/TabelaAprovacaoAvalicao'
 import 'chart.js/auto';
 import { useNavigate } from 'react-router';
 

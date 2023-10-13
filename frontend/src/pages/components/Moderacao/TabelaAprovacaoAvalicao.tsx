@@ -12,8 +12,6 @@ import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import TablePagination from '@mui/material/TablePagination';
 
-import FiltroProfessores from './FiltroProfessores';
-import NovaAvaliacaoProfessor from './NovaAvaliacaoProfessor';
 import DetalhesAvaliacao from './DetalhesAvaliacao';
 
 interface Row {
@@ -270,14 +268,7 @@ export default function TabelaAprovacaoAvalicao() {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                style={{backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center'}}
-            />
-            <FiltroProfessores
-                open={openFilterDialog}
-                onClose={handleCloseFilterDialog}
-                onApplyFilters={handleApplyFilters}
-                onClearFilters={clearFilters}
-                rows={initialRows}
+                style={{ backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center' }}
             />
             {showDetails && (
                 <DetalhesAvaliacao disciplina={showDetails} onClose={() => setShowDetails(null)} />

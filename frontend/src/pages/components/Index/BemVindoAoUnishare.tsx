@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-import backgroundImg from '../../assets/img/background.jpg';
+import backgroundImg from '../../../assets/img/background.jpg';
 
-export default function DiferenciaisDoUnishare() {
+export default function BemVindoAoUnishare() {
 
     return (
         <div>

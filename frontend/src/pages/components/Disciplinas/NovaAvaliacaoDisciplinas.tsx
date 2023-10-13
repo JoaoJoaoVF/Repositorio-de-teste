@@ -5,7 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
-import FormularioAvaliacao from './FormularioAvaliacao';
+import FormularioAvaliacao from '../FormularioAvaliacao';
 
 const NovaAvaliacaoProfessor = () => {
     const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ const NovaAvaliacaoProfessor = () => {
     };
 
     const handleEnviarClick = () => {
-        
+
     };
 
     return (

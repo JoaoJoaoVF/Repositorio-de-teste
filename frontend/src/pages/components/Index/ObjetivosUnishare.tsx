@@ -1,7 +1,7 @@
 import React from 'react';
 
-import backgroundImg from '../../assets/img/DraftLogoWithoutText.png';
-import '../../assets/css/Main.css';
+import backgroundImg from '../../../assets/img/DraftLogoWithoutText.png';
+import '../../../assets/css/Main.css';
 
 export default function ObjetivosUnishare() {
     return (

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import Missao from '../../assets/img/missao.jpg';
-import Valores from '../../assets/img/valores.jpg';
-import Visao from '../../assets/img/visao.jpg';
+import Missao from '../../../assets/img/missao.jpg';
+import Valores from '../../../assets/img/valores.jpg';
+import Visao from '../../../assets/img/visao.jpg';
 
-import '../../assets/css/Main.css';
+import '../../../assets/css/Main.css';
 
 export default function MissaoValoresVisao() {
     useEffect(() => {

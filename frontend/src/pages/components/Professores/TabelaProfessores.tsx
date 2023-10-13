@@ -267,7 +267,7 @@ export default function TabelaProfessores() {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                style={{backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center'}}
+                style={{ backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center' }}
             />
             <FiltroProfessores
                 open={openFilterDialog}

@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, Dropdown, NavDropdown } from 'react-bootstrap';
 
-import '../../assets/css/Main.css'
+import '../../assets/css/Main.css';
 
 export default function SideBarDashboard() {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/tipousuario');
+                if (response.ok) {
+                    const userData = await response.json();
+                    setUser(userData);
+                }
+            } catch (error) {
+                console.error('Erro ao obter dados do usuário:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
-        <div className='col-md-1 ' style={{ height: '100%' }}>
+        <div className='col-md-1' style={{ height: '100%' }}>
             <div className="d-flex flex-column flex-shrink-0 p-0">
                 <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                 </a>
@@ -41,6 +59,16 @@ export default function SideBarDashboard() {
                             Fóruns
                         </Nav.Link>
                     </NavItem>
+                    {user && user.tipo === 0 && (
+                        <NavItem className='navegacao'>
+                            <Nav.Link href="/moderacao" active>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="#173fbc" d="M6 22q-.825 0-1.413-.588T4 20v-4q0-.825.588-1.413T6 14h12q.825 0 1.413.588T20 16v4q0 .825-.588 1.413T18 22H6Zm1-4h10q.425 0 .713-.288T18 17q0-.425-.288-.713T17 16H7q-.425 0-.713.288T6 17q0 .425.288.713T7 18Zm4.175-5.15l-3.7-5.175q-.225-.325-.312-.712t-.038-.788q.3-1.825 1.65-3T12 2q1.875 0 3.225 1.175t1.65 3q.05.4-.038.788t-.312.712l-3.7 5.175q-.3.425-.825.425t-.825-.425Z" />
+                                </svg>
+                                Moderação
+                            </Nav.Link>
+                        </NavItem>
+                    )}
                     {/* <NavItem className='navegacao'>
                         <Nav.Link href="/faqs" active>
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>

@@ -5,35 +5,39 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 
 export default function FiltroProfessores({
   open,
-  handleClose,
-  handleApplyFilters,
-  clearFilters,
+  onClose, // Renomeie handleClose para onClose
+  onApplyFilters, // Renomeie handleApplyFilters para onApplyFilters
+  onClearFilters,
   rows,
 }) {
   const [filterDisciplina, setFilterDisciplina] = useState('');
   const [filterNotaMaiorQue, setFilterNotaMaiorQue] = useState('');
   const [filterSemestre, setFilterSemestre] = useState('');
   const [filterDepartamento, setFilterDepartamento] = useState('');
-  const [filterNumeroAvaliacoesMin, setFilterNumeroAvaliacoesMin] = useState(''); // Filtro de número mínimo de avaliações
-  const [filterQuantidadeEstrelasMin, setFilterQuantidadeEstrelasMin] = useState(''); // Filtro de quantidade mínima de estrelas
+  const [filterNumeroAvaliacoesMin, setFilterNumeroAvaliacoesMin] = useState('');
 
   const applyFilters = () => {
     let filteredRows = rows;
 
     if (filterDisciplina) {
       filteredRows = filteredRows.filter((row) =>
-        row.disciplinaOfertada.toLowerCase().includes(filterDisciplina.toLowerCase())
+        row.nomeProfessor.toLowerCase().includes(filterDisciplina.toLowerCase()) // Atualize para o campo correto
       );
+    }
+
+    if (filterNotaMaiorQue) {
+      const notaMaiorQue = parseFloat(filterNotaMaiorQue);
+      if (!isNaN(notaMaiorQue)) {
+        filteredRows = filteredRows.filter((row) => row.nota > notaMaiorQue);
+      }
     }
 
     if (filterSemestre) {
       filteredRows = filteredRows.filter((row) =>
-        row.semestre.includes(filterSemestre)
+        row.departamento.toLowerCase().includes(filterSemestre.toLowerCase()) // Atualize para o campo correto
       );
     }
 
@@ -46,65 +50,48 @@ export default function FiltroProfessores({
     if (filterNumeroAvaliacoesMin) {
       const numAvaliacoesMin = parseInt(filterNumeroAvaliacoesMin);
       if (!isNaN(numAvaliacoesMin)) {
-        filteredRows = filteredRows.filter((row) => row.numeroAvaliacoes >= numAvaliacoesMin);
+        filteredRows = filteredRows.filter((row) => row.quantidadeAvaliacoes >= numAvaliacoesMin);
       }
     }
 
-    if (filterQuantidadeEstrelasMin) {
-      const numEstrelasMin = parseFloat(filterQuantidadeEstrelasMin);
-      if (!isNaN(numEstrelasMin)) {
-        filteredRows = filteredRows.filter((row) => row.quantidadeEstrelas >= numEstrelasMin);
-      }
-    }
-
-    handleApplyFilters(filteredRows);
+    onApplyFilters(filteredRows); // Chame a função passada por propriedade
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={onClose}> {/* Use onClose em vez de handleClose */}
       <DialogContent>
         <DialogContentText>
-          Configure os filtros desejados:
+          Filtrar por:
         </DialogContentText>
         <TextField
-          label="Filtrar por Disciplina"
+          label="Nome do Professor"
           value={filterDisciplina}
           onChange={(e) => setFilterDisciplina(e.target.value)}
         />
         <TextField
-          label="Filtrar por Nota Maior Que"
+          label="Nota Maior Que"
           value={filterNotaMaiorQue}
           onChange={(e) => setFilterNotaMaiorQue(e.target.value)}
         />
         <TextField
-          label="Filtrar por Semestre"
-          value={filterSemestre}
-          onChange={(e) => setFilterSemestre(e.target.value)}
-        />
-        <TextField
-          label="Filtrar por Departamento"
+          label="Departamento"
           value={filterDepartamento}
           onChange={(e) => setFilterDepartamento(e.target.value)}
         />
         <TextField
-          label="Número Mínimo de Avaliações"
+          label="Mínimo de Avaliações"
           value={filterNumeroAvaliacoesMin}
           onChange={(e) => setFilterNumeroAvaliacoesMin(e.target.value)}
-        />
-        <TextField
-          label="Quantidade Mínima de Estrelas"
-          value={filterQuantidadeEstrelasMin}
-          onChange={(e) => setFilterQuantidadeEstrelasMin(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={applyFilters} variant="contained" color="primary">
           Aplicar Filtros
         </Button>
-        <Button onClick={clearFilters} variant="outlined" color="secondary">
+        <Button onClick={onClearFilters} variant="outlined" color="secondary">
           Limpar Filtros
         </Button>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={onClose} color="primary">
           Fechar
         </Button>
       </DialogActions>

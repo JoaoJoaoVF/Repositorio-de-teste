@@ -5,13 +5,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 
-export default function FiltroProfessores({
+export default function FiltroDisciplinas({
   open,
-  handleClose,
-  handleApplyFilters,
+  onClose,
+  onApplyFilters,
   clearFilters,
   rows,
 }) {
@@ -19,8 +17,6 @@ export default function FiltroProfessores({
   const [filterNotaMaiorQue, setFilterNotaMaiorQue] = useState('');
   const [filterSemestre, setFilterSemestre] = useState('');
   const [filterDepartamento, setFilterDepartamento] = useState('');
-  const [filterNumeroAvaliacoesMin, setFilterNumeroAvaliacoesMin] = useState(''); // Filtro de número mínimo de avaliações
-  const [filterQuantidadeEstrelasMin, setFilterQuantidadeEstrelasMin] = useState(''); // Filtro de quantidade mínima de estrelas
 
   const applyFilters = () => {
     let filteredRows = rows;
@@ -31,9 +27,16 @@ export default function FiltroProfessores({
       );
     }
 
+    if (filterNotaMaiorQue) {
+      const notaMaiorQue = parseFloat(filterNotaMaiorQue);
+      if (!isNaN(notaMaiorQue)) {
+        filteredRows = filteredRows.filter((row) => row.notaMedia > notaMaiorQue);
+      }
+    }
+
     if (filterSemestre) {
       filteredRows = filteredRows.filter((row) =>
-        row.semestre.includes(filterSemestre)
+        row.semestre.toLowerCase().includes(filterSemestre.toLowerCase())
       );
     }
 
@@ -43,58 +46,34 @@ export default function FiltroProfessores({
       );
     }
 
-    if (filterNumeroAvaliacoesMin) {
-      const numAvaliacoesMin = parseInt(filterNumeroAvaliacoesMin);
-      if (!isNaN(numAvaliacoesMin)) {
-        filteredRows = filteredRows.filter((row) => row.numeroAvaliacoes >= numAvaliacoesMin);
-      }
-    }
-
-    if (filterQuantidadeEstrelasMin) {
-      const numEstrelasMin = parseFloat(filterQuantidadeEstrelasMin);
-      if (!isNaN(numEstrelasMin)) {
-        filteredRows = filteredRows.filter((row) => row.quantidadeEstrelas >= numEstrelasMin);
-      }
-    }
-
-    handleApplyFilters(filteredRows);
+    onApplyFilters(filteredRows);
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={onClose}>
       <DialogContent>
         <DialogContentText>
-          Configure os filtros desejados:
+          Filtrar por:
         </DialogContentText>
         <TextField
-          label="Filtrar por Disciplina"
+          label="Nome da Disciplina"
           value={filterDisciplina}
           onChange={(e) => setFilterDisciplina(e.target.value)}
         />
         <TextField
-          label="Filtrar por Nota Maior Que"
+          label="Nota Maior Que"
           value={filterNotaMaiorQue}
           onChange={(e) => setFilterNotaMaiorQue(e.target.value)}
         />
         <TextField
-          label="Filtrar por Semestre"
+          label="Semestre"
           value={filterSemestre}
           onChange={(e) => setFilterSemestre(e.target.value)}
         />
         <TextField
-          label="Filtrar por Departamento"
+          label="Departamento"
           value={filterDepartamento}
           onChange={(e) => setFilterDepartamento(e.target.value)}
-        />
-        <TextField
-          label="Número Mínimo de Avaliações"
-          value={filterNumeroAvaliacoesMin}
-          onChange={(e) => setFilterNumeroAvaliacoesMin(e.target.value)}
-        />
-        <TextField
-          label="Quantidade Mínima de Estrelas"
-          value={filterQuantidadeEstrelasMin}
-          onChange={(e) => setFilterQuantidadeEstrelasMin(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
@@ -104,7 +83,7 @@ export default function FiltroProfessores({
         <Button onClick={clearFilters} variant="outlined" color="secondary">
           Limpar Filtros
         </Button>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={onClose} color="primary">
           Fechar
         </Button>
       </DialogActions>

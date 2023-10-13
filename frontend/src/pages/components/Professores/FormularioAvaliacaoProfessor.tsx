@@ -34,15 +34,18 @@ const FormularioAvaliacaoProfessor = () => {
     };
 
     console.log('Dados da avaliação a serem enviados:', avaliacaoData);
-
+    const token = localStorage.getItem('token');
+    
     // Realize a solicitação POST para a rota da API
     fetch('http://localhost:3000/avaliar-professor', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': token,
       },
       body: JSON.stringify(avaliacaoData),
     })
+
       .then((response) => response.json())
       .then((data) => {
         console.log('Resposta da API:', data);
@@ -168,11 +171,11 @@ const FormularioAvaliacaoProfessor = () => {
                   className="form-control"
                   id="comentario"
                   name="comentario"
-                  placeholder="Comentário (Opcional)"
+                  placeholder="Comentário"
                   value={formData.comentario}
                   onChange={handleChange}
                 />
-                <label htmlFor="comentario">Comentário (Opcional)</label>
+                <label htmlFor="comentario">Comentário</label>
               </div>
             </div>
           </div>

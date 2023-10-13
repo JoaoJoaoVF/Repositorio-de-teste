@@ -41,7 +41,6 @@ const NovaAvaliacaoProfessor = () => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={fecharFormulario}>Fechar</Button>
-                        <Button onClick={handleEnviarClick}>Enviar</Button>
                     </DialogActions>
                 </Dialog>
             )}

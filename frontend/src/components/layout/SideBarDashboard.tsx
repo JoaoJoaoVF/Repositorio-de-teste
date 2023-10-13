@@ -7,20 +7,13 @@ export default function SideBarDashboard() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Substitua :id pelo ID do usuário que deseja consultar
-                const response = await fetch('http://localhost:3000/tipo-usuario/0'); // Substitua 1 pelo ID do usuário
-                if (response.ok) {
-                    const userData = await response.json();
-                    setUser(userData);
-                }
-            } catch (error) {
-                console.error('Erro ao obter dados do usuário:', error);
-            }
-        };
-
-        fetchData();
+        fetch('http://localhost:3000/tipo-usuario/1')
+            .then(response => response.json())
+            .then(data => {
+                setUser(data);
+                console.log(data); // Adicione este console.log para verificar a resposta
+            })
+            .catch(error => console.error('Erro na solicitação:', error));
     }, []);
 
     return (
@@ -70,12 +63,6 @@ export default function SideBarDashboard() {
                             </Nav.Link>
                         </NavItem>
                     )}
-                    {/* <NavItem className='navegacao'>
-                        <Nav.Link href="/faqs" active>
-                            <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            FAQs
-                        </Nav.Link>
-                    </NavItem> */}
                 </Nav>
             </div>
         </div>

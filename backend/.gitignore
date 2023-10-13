@@ -3,3 +3,4 @@ node_modules
 docker-compose.yml
 dockerfile
 dados_mysql
+my-mysql.tar

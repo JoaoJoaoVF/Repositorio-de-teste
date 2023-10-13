@@ -5,11 +5,15 @@ import { RowDataPacket } from 'mysql2/promise';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-const app = express();
 const port = process.env.PORT || 3000;
 const segredo = 'ohohohoh';
 const saltRounds = 12; // Número de iterações para o bcrypt
 const axios = require('axios');
+const cors = require('cors');
+
+const app = express();
+
+app.use(cors());
 
 // Configuração do MySQL
 const connection = mysql.createConnection({

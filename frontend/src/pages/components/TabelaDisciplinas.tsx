@@ -288,6 +288,7 @@ export default function TabelaDisciplinas() {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
+                style={{backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center'}}
             />
             <FiltroDisciplinas
                 open={openFilterDialog}

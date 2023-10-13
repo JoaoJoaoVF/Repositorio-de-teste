@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const segredo = 'ohohohoh';
 const saltRounds = 12; // Número de iterações para o bcrypt
+const axios = require('axios');
 
 // Configuração do MySQL
 const connection = mysql.createConnection({
@@ -196,6 +197,68 @@ app.get('/tipo-usuario/:id', (req: Request, res: Response) => {
     }
   );
 });
+
+// Rota para aprovar uma avaliação pendente
+app.post('/aprovar-avaliacao/:avaliacaoId', (req: Request, res: Response) => {
+  const avaliacaoId = req.params.avaliacaoId;
+
+  // Verifique o tipo de usuário com base no token JWT
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(401).json({ mensagem: 'Token não fornecido' });
+  }
+
+  const jwtOptions = {
+    
+  };
+
+  jwt.verify(token, segredo, jwtOptions, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ mensagem: 'Token inválido' });
+    }
+
+    const userId = (decoded as any).id;
+    if (userId === undefined) {
+      return res.status(401).json({ mensagem: 'Token inválido' });
+    }
+
+    // Verifique o tipo de usuário no banco de dados usando a rota existente
+    connection.execute(
+      'SELECT tipo FROM alunos WHERE id = ?',
+      [userId],
+      (error, results: any) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({ mensagem: 'Erro interno do servidor' });
+        } else if (results.length === 0) {
+          return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+        } else {
+          const tipoUsuario = results[0].tipo;
+
+          // Verifique se o tipo de usuário é um moderador (tipo 0)
+          if (tipoUsuario !== 0) {
+            return res.status(403).json({ mensagem: 'Acesso não autorizado' });
+          }
+
+          // Aprovar a avaliação no banco de dados
+          connection.execute(
+            'UPDATE avaliacoes_professores SET aprovada = 1 WHERE id = ?',
+            [avaliacaoId],
+            (error, _results) => {
+              if (error) {
+                console.error(error);
+                return res.status(500).json({ mensagem: 'Erro interno do servidor' });
+              } else {
+                return res.status(200).json({ mensagem: 'Avaliação aprovada com sucesso' });
+              }
+            }
+          );
+        }
+      }
+    );
+  });
+});
+
 
 
 app.listen(port, () => {

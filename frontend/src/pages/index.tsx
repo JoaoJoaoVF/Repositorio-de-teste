@@ -15,12 +15,6 @@ export default function HomePage() {
             <div className='container-fluid'>
                 <div className='row'>
 
-                <button className='btn btn-primary btn-lg btn-block'>
-                        <Link to='/dashboard' className='text-white'>
-                            Dashboard
-                        </Link>
-                    </button>
-                    
                     <BemVindoAoUnishare />
 
                     <MissaoValoresVisao />

@@ -5,7 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
-import FormularioAvaliacao from '../FormularioAvaliacao';
+import FormularioAvaliacaoProfessor from './FormularioAvaliacaoProfessor';
 
 const NovaAvaliacaoProfessor = () => {
     const [open, setOpen] = useState(false);
@@ -37,7 +37,7 @@ const NovaAvaliacaoProfessor = () => {
                         Formulário de Avaliação
                     </DialogTitle>
                     <DialogContent id="modal-dialog-description">
-                        <FormularioAvaliacao />
+                        <FormularioAvaliacaoProfessor />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={fecharFormulario}>Fechar</Button>

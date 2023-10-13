@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Axios from 'axios';
+import axios from 'axios';
 import 'chart.js/auto';
+
 import Logo from '../assets/img/DraftLogoWithoutText.png';
 
 export default function Cadastro() {
@@ -12,12 +13,9 @@ export default function Cadastro() {
         confirmarEmail: '',
         senha: '',
         confirmarSenha: '',
-        universidade: '',
         curso: '',
-        usuario: '',
-        CPF: '',
+        universidade: '',
     });
-
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -29,72 +27,53 @@ export default function Cadastro() {
         });
     };
 
-    const senhaValida = (senha) => {
+    const senhaValida = (senha: string) => {
         const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return senhaRegex.test(senha);
     };
 
-    const cpfValido = (CPF) => {
-        // Aceita CPFs com formato XXXXXXXXXXX (11 dígitos sem pontos ou hífen)
-        const cpfRegex = /^\d{11}$/;
-        return cpfRegex.test(CPF);
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // Verifique se as senhas são idênticas
         if (formData.senha !== formData.confirmarSenha) {
-            setError('As senhas não coincidem.');
+            alert("As senhas não coincidem.");
             return;
         }
 
         // Verifique se os emails são idênticos
         if (formData.email !== formData.confirmarEmail) {
-            setError('Os emails não coincidem.');
+            alert("Os emails não coincidem.");
             return;
         }
 
-        // Verifique se a senha atende aos critérios
-        if (!senhaValida(formData.senha)) {
-            setError('A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos especiais.');
-            return;
-        }
-
-        // Verifique se o CPF é válido
-        if (!cpfValido(formData.CPF)) {
-            setError('O número de CPF não é válido.');
-            return;
-        }
-
-        // Crie um objeto com os campos desejados
         const dataToSend = {
             nome: formData.nome + ' ' + formData.sobrenome,
             email: formData.email,
             senha: formData.senha,
-            curso: formData.curso, // Certifique-se de que o campo 'curso' esteja definido no seu estado
+            curso: formData.curso,
             universidade: formData.universidade,
         };
 
-        // Exiba os dados enviados para a API no console
+        // Exibe os dados enviados para a API no console
         console.log('Dados enviados para a API:', dataToSend);
 
-        // Enviar dados do formulário para o servidor
         try {
-            const response = await Axios.post('http://localhost:3000/registro', dataToSend);
+            const response = await axios.post('http://localhost:3000/registro', dataToSend);
 
             if (response.status === 200) {
                 // Registro bem-sucedido
-                navigate('/login'); // Redirecione para a página de login
+                navigate('/login'); 
+                console.log('Registro bem-sucedido');
             } else {
                 setError('Erro no registro.');
+                console.log('Erro no registro.');
             }
         } catch (error) {
             setError('Erro de rede ou servidor não disponível.');
+            console.log('Erro de rede ou servidor não disponível.');
         }
     };
-
-
 
     return (
         <div className='container-fluid d-flex justify-content-center'>
@@ -155,7 +134,7 @@ export default function Cadastro() {
                                     onChange={handleChange}
                                     required
                                 />
-                                <label htmlFor="email">E-mail Institucional</label>
+                                <label htmlFor="email">E-mail</label>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -170,7 +149,7 @@ export default function Cadastro() {
                                     onChange={handleChange}
                                     required
                                 />
-                                <label htmlFor="confirmarEmail">Confirmar E-mail Institucional</label>
+                                <label htmlFor="confirmarEmail">Confirmar E-mail</label>
                             </div>
                         </div>
                     </div>
@@ -229,44 +208,12 @@ export default function Cadastro() {
                                     className="form-control"
                                     id="curso"
                                     name="curso"
-                                    placeholder="curso"
+                                    placeholder="Curso"
                                     value={formData.curso}
                                     onChange={handleChange}
                                     required
                                 />
-                                <label htmlFor="curso">Digite seu curso</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-floating mb-1">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="CPF"
-                                    name="CPF"
-                                    placeholder="CPF"
-                                    value={formData.CPF}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <label htmlFor="CPF">CPF</label>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="form-floating mb-1">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="usuario"
-                                    name="usuario"
-                                    placeholder="Usuario"
-                                    value={formData.usuario}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <label htmlFor="usuario">Usúario</label>
+                                <label htmlFor="curso">Curso</label>
                             </div>
                         </div>
                     </div>

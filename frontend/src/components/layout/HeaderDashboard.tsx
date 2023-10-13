@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { Dropdown, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom'; // Importe useNavigate
 import '../../assets/css/Main.css';
 
 import Logo from '../../assets/img/DraftLogoWithoutBackground.png';
 
 export default function HeaderDashboard() {
     const [isDropdown2Open, setDropdown2Open] = useState(false);
+    const navigate = useNavigate(); // Obtenha a função de navegação
+
+    const handleLogout = () => {
+        // Limpe o token de autenticação do localStorage
+        localStorage.removeItem('token');
+        // Redirecione o usuário para a página de login
+        navigate('/');
+    };
 
     return (
         <header className="py-3 mb-3 border-bottom">
@@ -28,7 +35,6 @@ export default function HeaderDashboard() {
                                 href="#"
                                 className="d-block link-dark text-decoration-none"
                             >
-                                {/* <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" /> */}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#173fbc" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88a9.947 9.947 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20z" /></svg>
                             </Dropdown.Toggle>
                             <Nav className=''>
@@ -50,9 +56,10 @@ export default function HeaderDashboard() {
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item>
-                                        <Link to="/" className="nav-link">
+                                        {/* Adicione um manipulador de eventos para sair (logout) */}
+                                        <button onClick={handleLogout} className="nav-link">
                                             Sair
-                                        </Link>
+                                        </button>
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Nav>

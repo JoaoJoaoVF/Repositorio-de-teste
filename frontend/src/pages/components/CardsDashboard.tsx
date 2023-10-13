@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import 'chart.js/auto';
 
-import Logo from '../../assets/img/Logo_UFMG.png';
+import Logo from '../../assets/img/DraftLogoWithoutText.png';
 
 export default function CardsDashboard() {
     // Defina suas variáveis aqui
-    const curso = 'Sistemas de Informação';
-    const universidade = 'Universidade Federal de Minas Gerais';
-    const periodo = '5';
-    const disciplinas = ['Disciplina 1', 'Disciplina 2', 'Disciplina 3'];
+    const boasvindas = 'Bem vindo ao Unishare';
+    const disciplinas = 'Você ainda não possui discipinas cadastradas';
     const forunsText = 'Você ainda não possui fóruns para participar.';
     const avaliacoesText = 'Você ainda não possui avaliações para fazer.';
 
@@ -20,12 +18,10 @@ export default function CardsDashboard() {
                 <div className="container col-xxl-8 px-4 py-5">
                     <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
                         <div className="col-10 col-sm-8 col-lg-6">
-                            <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">{curso}</h1>
-                            <h2 className="display-8 mb-3">{universidade}</h2>
-                            <h3 className="display-8 text-#173FBC">{periodo}º Período</h3>
+                            <h1 className="display-5 text-#173FBC fw-bold text-body-emphasis lh-1 mb-3 ">{boasvindas}</h1>
                         </div>
                         <div className="col-lg-6">
-                            <img src={Logo} className="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy" />
+                            <img src={Logo} className="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="200" height="200" loading="lazy" />
                         </div>
                     </div>
                 </div>
@@ -35,9 +31,7 @@ export default function CardsDashboard() {
                         <div className="card-body">
                             <h5 className="card-title">Minhas disciplinas</h5>
                             <ul className="list-unstyled text-gray">
-                                {disciplinas.map((disciplina, index) => (
-                                    <li key={index}>{disciplina}</li>
-                                ))}
+                                {disciplinas}
                             </ul>
                         </div>
                     </div>

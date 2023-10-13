@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Nav, NavItem, Dropdown, NavDropdown } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 
 import '../../assets/css/Main.css';
 
@@ -9,7 +9,8 @@ export default function SideBarDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/tipousuario');
+                // Substitua :id pelo ID do usuário que deseja consultar
+                const response = await fetch('http://localhost:3000/tipo-usuario/0'); // Substitua 1 pelo ID do usuário
                 if (response.ok) {
                     const userData = await response.json();
                     setUser(userData);

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 import 'chart.js/auto';
-
 import Logo from '../assets/img/DraftLogoWithoutText.png';
 
-export default function SignUp() {
+export default function Cadastro() {
     const [formData, setFormData] = useState({
         nome: '',
         sobrenome: '',
@@ -13,10 +13,13 @@ export default function SignUp() {
         senha: '',
         confirmarSenha: '',
         universidade: '',
-        periodo: '1', // Defina o período inicial como '1' (1º período)
+        curso: '',
         usuario: '',
         CPF: '',
     });
+
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,51 +29,71 @@ export default function SignUp() {
         });
     };
 
-    const senhaValida = (senha: string) => {
+    const senhaValida = (senha) => {
         const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return senhaRegex.test(senha);
     };
 
-    const usuarioValida = (usuario: string) => {
-        const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return senhaRegex.test(usuario);
-    };
-
-    const cpfValido = (CPF: string) => {
+    const cpfValido = (CPF) => {
         // Aceita CPFs com formato XXXXXXXXXXX (11 dígitos sem pontos ou hífen)
         const cpfRegex = /^\d{11}$/;
         return cpfRegex.test(CPF);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Verifique se as senhas são idênticas
         if (formData.senha !== formData.confirmarSenha) {
-            alert("As senhas não coincidem.");
+            setError('As senhas não coincidem.');
             return;
         }
 
-        // Verifique se os emails são idênticas
+        // Verifique se os emails são idênticos
         if (formData.email !== formData.confirmarEmail) {
-            alert("Os emails não coincidem.");
+            setError('Os emails não coincidem.');
             return;
         }
 
         // Verifique se a senha atende aos critérios
         if (!senhaValida(formData.senha)) {
-            alert("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos especiais.");
+            setError('A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos especiais.');
             return;
         }
 
         // Verifique se o CPF é válido
         if (!cpfValido(formData.CPF)) {
-            alert("O número de CPF não é válido.");
+            setError('O número de CPF não é válido.');
             return;
         }
 
-        // Resto do código para o envio dos dados do formulário
+        // Crie um objeto com os campos desejados
+        const dataToSend = {
+            nome: formData.nome + ' ' + formData.sobrenome,
+            email: formData.email,
+            senha: formData.senha,
+            curso: formData.curso, // Certifique-se de que o campo 'curso' esteja definido no seu estado
+            universidade: formData.universidade,
+        };
+
+        // Exiba os dados enviados para a API no console
+        console.log('Dados enviados para a API:', dataToSend);
+
+        // Enviar dados do formulário para o servidor
+        try {
+            const response = await Axios.post('http://localhost:3000/registro', dataToSend);
+
+            if (response.status === 200) {
+                // Registro bem-sucedido
+                navigate('/login'); // Redirecione para a página de login
+            } else {
+                setError('Erro no registro.');
+            }
+        } catch (error) {
+            setError('Erro de rede ou servidor não disponível.');
+        }
     };
+
 
 
     return (
@@ -201,28 +224,17 @@ export default function SignUp() {
                         </div>
                         <div className="col-md-6">
                             <div className="form-floating mb-1">
-                                <select
-                                    className="form-select"
-                                    id="periodo"
-                                    name="periodo"
-                                    value={formData.periodo}
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="curso"
+                                    name="curso"
+                                    placeholder="curso"
+                                    value={formData.curso}
                                     onChange={handleChange}
-                                >
-                                    <option value="1">1º período</option>
-                                    <option value="2">2º período</option>
-                                    <option value="3">3º período</option>
-                                    <option value="4">4º período</option>
-                                    <option value="5">5º período</option>
-                                    <option value="6">6º período</option>
-                                    <option value="7">7º período</option>
-                                    <option value="8">8º período</option>
-                                    <option value="9">9º período</option>
-                                    <option value="10">10º período</option>
-                                    <option value="11">11º período</option>
-                                    <option value="12">12º período</option>
-                                    <option value="mais-de-12">Mais de 12º período</option>
-                                </select>
-                                <label htmlFor="periodo">Selecione o período</label>
+                                    required
+                                />
+                                <label htmlFor="curso">Digite seu curso</label>
                             </div>
                         </div>
                     </div>

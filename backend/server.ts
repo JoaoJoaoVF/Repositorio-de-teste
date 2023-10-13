@@ -135,10 +135,10 @@ app.post('/login', (req: Request, res: Response) => {
 
 // Rota para escrever avaliações sobre professores
 app.post('/avaliar-professor', (req: Request, res: Response) => {
-  const { alunoId, professorNome, professorMateria, professorUniversidade, avaliacaoTexto } = req.body;
+  const { alunoId, professorNome, professorMateria, professorUniversidade, semestre, nota, departamento, avaliacaoTexto } = req.body;
 
   // Valide os dados
-  if (!alunoId || !professorNome || !professorMateria || !professorUniversidade || !avaliacaoTexto) {
+  if (!alunoId || !professorNome || !professorMateria || !professorUniversidade || !semestre || !nota || !departamento || !avaliacaoTexto) {
     res.status(400).json({ mensagem: 'Todos os campos são obrigatórios' });
     return;
   }
@@ -153,8 +153,8 @@ app.post('/avaliar-professor', (req: Request, res: Response) => {
     } else {
       // Crie um novo registro de avaliação no banco de dados
       connection.execute(
-        'INSERT INTO avaliacoes_professores (aluno_id, professor_nome, professor_materia, professor_universidade, avaliacao_texto, aprovada) VALUES (?, ?, ?, ?, ?, false)',
-        [alunoId, professorNome, professorMateria, professorUniversidade, avaliacaoTexto],
+        'INSERT INTO avaliacoes_professores (aluno_id, professor_nome, professor_materia, professor_universidade, semestre, nota, departamento, avaliacao_texto, aprovada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, false)',
+        [alunoId, professorNome, professorMateria, professorUniversidade, semestre, nota, departamento, avaliacaoTexto],
         (error, results) => {
           if (error) {
             console.error(error);
@@ -168,6 +168,7 @@ app.post('/avaliar-professor', (req: Request, res: Response) => {
     }
   });
 });
+
 
 // Rota para obter o tipo de usuário com base no ID
 app.get('/tipo-usuario/:id', (req: Request, res: Response) => {

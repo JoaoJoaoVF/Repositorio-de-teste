@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import mysql, { ResultSetHeader } from 'mysql2';
+import { RowDataPacket } from 'mysql2/promise';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
@@ -167,6 +168,34 @@ app.post('/avaliar-professor', (req: Request, res: Response) => {
     }
   });
 });
+
+// Rota para obter o tipo de usuário com base no ID
+app.get('/tipo-usuario/:id', (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id, 10); // Extrai o ID do parâmetro da URL
+
+  if (isNaN(userId)) {
+    res.status(400).json({ mensagem: 'ID de usuário inválido' });
+    return;
+  }
+
+  // Verifique o tipo de usuário no banco de dados
+  connection.execute(
+    'SELECT tipo FROM alunos WHERE id = ?',
+    [userId],
+    (error, results: any) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ mensagem: 'Erro interno do servidor' });
+      } else if (results.length === 0) {
+        res.status(404).json({ mensagem: 'Usuário não encontrado' });
+      } else {
+        const tipoUsuario = results[0].tipo;
+        res.status(200).json({ tipo: tipoUsuario });
+      }
+    }
+  );
+});
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

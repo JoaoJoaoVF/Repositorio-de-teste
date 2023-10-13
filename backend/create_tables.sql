@@ -1,11 +1,12 @@
--- Criação da tabela "alunos"
+-- Criação da tabela "user"
 CREATE TABLE IF NOT EXISTS alunos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   senha VARCHAR(255) NOT NULL,
   curso VARCHAR(255) NOT NULL,
-  universidade VARCHAR(255) NOT NULL
+  universidade VARCHAR(255) NOT NULL,
+  tipo TINYINT(1) NOT NULL DEFAULT 1 -- 0 para moderador, 1 para aluno
 );
 
 -- Criação de um índice na coluna "email" para melhorar o desempenho de consultas

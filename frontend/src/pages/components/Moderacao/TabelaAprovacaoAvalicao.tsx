@@ -5,14 +5,15 @@ import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TableSortLabel from '@mui/material/TableSortLabel';
+import TableRow from '@mui/material/TableRow'; // Corrigido
+import Paper from '@mui/material/Paper'; // Corrigido
+import TableSortLabel from '@mui/material/TableSortLabel'; // Corrigido
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import TablePagination from '@mui/material/TablePagination';
 
 import DetalhesAvaliacao from './DetalhesAvaliacao';
+
 
 interface Row {
     nomeUsuario: string;
@@ -53,6 +54,7 @@ export default function TabelaAprovacaoAvalicao() {
     const [rows, setRows] = useState<Row[]>([]);
     const [initialRows, setInitialRows] = useState<Row[]>([]);
     const [showDetails, setShowDetails] = useState<Row | null>(null);
+    const [avaliacoes, setAvaliacoes] = useState([]); // Inicializa o estado com um array vazio
 
     const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' }>({
         key: '',
@@ -60,50 +62,58 @@ export default function TabelaAprovacaoAvalicao() {
     });
 
 
-    // Simule dados de exemplo
-    const exemploDados: Row[] = [
-        {
-            nomeUsuario: 'João Silva',
-            nomeProfessor: 'Luiza de Melo',
-            nota: 8.5,
-            departamento: 'Ciências Exatas',
-            semestre: '2023/1',
-            comentario: 'Ótima professora, explica muito bem e é muito atenciosa com os alunos.'
-        },
-        {
-            nomeUsuario: 'Maria Souza',
-            nomeProfessor: 'Lucas Avelar',
-            nota: 7.2,
-            departamento: 'Ciências Humanas',
-            semestre: '2023/1',
-            comentario: 'Professor muito bom, mas as aulas são um pouco cansativas.'
-        },
-    ];
+    // // Simule dados de exemplo
+    // const exemploDados: Row[] = [
+    //     {
+    //         nomeUsuario: 'João Silva',
+    //         nomeProfessor: 'Luiza de Melo',
+    //         nota: 8.5,
+    //         departamento: 'Ciências Exatas',
+    //         semestre: '2023/1',
+    //         comentario: 'Ótima professora, explica muito bem e é muito atenciosa com os alunos.'
+    //     },
+    //     {
+    //         nomeUsuario: 'Maria Souza',
+    //         nomeProfessor: 'Lucas Avelar',
+    //         nota: 7.2,
+    //         departamento: 'Ciências Humanas',
+    //         semestre: '2023/1',
+    //         comentario: 'Professor muito bom, mas as aulas são um pouco cansativas.'
+    //     },
+    // ];
 
     const handleTableRowClick = (disciplina: Row) => {
         // Abre o pop-up de detalhes quando uma linha da tabela é clicada
         setShowDetails(disciplina);
     };
 
-    // Esqueleto para importar os dados do back
-    // useEffect(() => {
-    //     fetch()
-    //         .then((response) => response.json())
-    //         .then((data: Row[]) => {
-    //             setRows(data);
-    //             setInitialRows(data); 
-    //             console.log(data);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Erro ao carregar os dados:', error);
-    //         });
-    // }, []);
-
-
     useEffect(() => {
-        setRows(exemploDados);
-        setInitialRows(exemploDados);
-    }, []);
+        // Função para buscar avaliações pendentes do servidor
+        const fetchAvaliacoesPendentes = () => {
+          fetch('http://localhost:3000/avaliacoes-pendentes', {
+            method: 'GET',
+            headers: {
+              'Authorization': 'SEU_TOKEN_JWT', // Substitua pelo seu token JWT
+            },
+          })
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Erro ao buscar as avaliações pendentes');
+              }
+            })
+            .then((data) => {
+              setAvaliacoes(data); // Define as avaliações obtidas do servidor no estado
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        };
+    
+        fetchAvaliacoesPendentes(); // Chama a função para buscar as avaliações quando o componente for montado
+      }, []); // O segundo argumento vazio garante que isso seja executado apenas uma vez
+    
 
     const [openFilterDialog, setOpenFilterDialog] = useState(false);
 

@@ -44,23 +44,19 @@ export default function UploadArquivos() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        // Simule a carga de dados do backend
         const exemploArquivos: Arquivo[] = [
             { id: 1, nomeArquivo: 'Exemplo', materia: 'Matemática', professor: 'Professor 1', semestre: '2023/2', tipo: 'Lista' },
             { id: 2, nomeArquivo: 'Apresentacao', materia: 'História', professor: 'Professor 2', semestre: '2023/1', tipo: 'Slide' },
-            // Adicione mais arquivos conforme necessário
         ];
 
         setArquivos(exemploArquivos);
     }, []);
 
     const handleUploadFile = (file: File) => {
-        // Implemente a lógica de upload do arquivo aqui
         console.log('Arquivo selecionado:', file.name);
     };
 
     const handleTableRowClick = () => {
-        // Abra um pop-up em branco quando uma linha da tabela for clicada
         window.open('', 'Popup', 'width=600,height=400');
     };
 

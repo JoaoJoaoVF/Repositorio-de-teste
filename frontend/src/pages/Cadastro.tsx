@@ -55,14 +55,12 @@ export default function Cadastro() {
             universidade: formData.universidade,
         };
 
-        // Exibe os dados enviados para a API no console
         console.log('Dados enviados para a API:', dataToSend);
 
         try {
             const response = await axios.post('http://localhost:3000/registro', dataToSend);
 
             if (response.status === 200) {
-                // Registro bem-sucedido
                 navigate('/login'); 
                 console.log('Registro bem-sucedido');
             } else {

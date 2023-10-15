@@ -8,8 +8,8 @@ import Button from '@mui/material/Button';
 
 export default function FiltroProfessores({
   open,
-  onClose, // Renomeie handleClose para onClose
-  onApplyFilters, // Renomeie handleApplyFilters para onApplyFilters
+  onClose, 
+  onApplyFilters, 
   onClearFilters,
   rows,
 }) {
@@ -24,7 +24,7 @@ export default function FiltroProfessores({
 
     if (filterDisciplina) {
       filteredRows = filteredRows.filter((row) =>
-        row.nomeProfessor.toLowerCase().includes(filterDisciplina.toLowerCase()) // Atualize para o campo correto
+        row.nomeProfessor.toLowerCase().includes(filterDisciplina.toLowerCase()) 
       );
     }
 
@@ -37,7 +37,7 @@ export default function FiltroProfessores({
 
     if (filterSemestre) {
       filteredRows = filteredRows.filter((row) =>
-        row.departamento.toLowerCase().includes(filterSemestre.toLowerCase()) // Atualize para o campo correto
+        row.departamento.toLowerCase().includes(filterSemestre.toLowerCase()) 
       );
     }
 
@@ -54,11 +54,11 @@ export default function FiltroProfessores({
       }
     }
 
-    onApplyFilters(filteredRows); // Chame a função passada por propriedade
+    onApplyFilters(filteredRows); 
   };
 
   return (
-    <Dialog open={open} onClose={onClose}> {/* Use onClose em vez de handleClose */}
+    <Dialog open={open} onClose={onClose}> 
       <DialogContent>
         <DialogContentText>
           Filtrar por:

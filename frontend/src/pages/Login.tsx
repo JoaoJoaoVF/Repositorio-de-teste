@@ -26,7 +26,7 @@ export default function Login() {
             email: email,
             senha: password,
         };
-        console.log(loginData); // Imprime as credenciais no console
+        console.log(loginData); 
         try {
             const response = await Axios.post('http://localhost:3000/login', loginData);
             const token = response.data.token;
@@ -60,7 +60,7 @@ export default function Login() {
                             value={email}
                             onChange={handleEmailChange}
                         />
-                        <label htmlFor="floatingInput">Identificação / E-mail</label>
+                        <label htmlFor="floatingInput">E-mail</label>
                     </div>
                     <div className="form-floating">
                         <input

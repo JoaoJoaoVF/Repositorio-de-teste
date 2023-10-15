@@ -4,7 +4,6 @@ import 'chart.js/auto';
 import Logo from '../../assets/img/DraftLogoWithoutText.png';
 
 export default function CardsDashboard() {
-    // Defina suas variáveis aqui
     const boasvindas = 'Bem vindo ao Unishare';
     const disciplinas = 'Você ainda não possui discipinas cadastradas';
     const forunsText = 'Você ainda não possui fóruns para participar.';

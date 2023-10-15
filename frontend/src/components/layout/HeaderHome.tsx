@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import routes from '~react-pages';
 
 import Logo from '../../assets/img/DraftLogoWithoutBackground.png'
 import '../../assets/css/Main.css'

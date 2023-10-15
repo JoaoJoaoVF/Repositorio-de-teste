@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Dropdown, Nav } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom'; // Importe useNavigate
+import { Link, useNavigate } from 'react-router-dom'; 
 import '../../assets/css/Main.css';
 
 import Logo from '../../assets/img/DraftLogoWithoutBackground.png';
 
 export default function HeaderDashboard() {
     const [isDropdown2Open, setDropdown2Open] = useState(false);
-    const navigate = useNavigate(); // Obtenha a função de navegação
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Limpe o token de autenticação do localStorage
         localStorage.removeItem('token');
-        // Redirecione o usuário para a página de login
         navigate('/');
     };
 
@@ -56,7 +54,6 @@ export default function HeaderDashboard() {
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item>
-                                        {/* Adicione um manipulador de eventos para sair (logout) */}
                                         <button onClick={handleLogout} className="nav-link">
                                             Sair
                                         </button>

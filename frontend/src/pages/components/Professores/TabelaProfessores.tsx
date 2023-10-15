@@ -53,7 +53,6 @@ export default function TabelaProfessores() {
         direction: 'ascending',
     });
 
-    // Simule dados de exemplo
     const exemploDados: Row[] = [
         {
             nomeProfessor: 'Luiza de Melo',
@@ -92,7 +91,6 @@ export default function TabelaProfessores() {
 
 
     useEffect(() => {
-        // Simule a carga de dados do back-end
         setRows(exemploDados);
         setInitialRows(exemploDados);
     }, []);
@@ -200,7 +198,7 @@ export default function TabelaProfessores() {
                     variant="contained"
                     onClick={handleOpenFilterDialog}
                     className='col-md-2 mt-2'
-                    style={{ backgroundColor: '#7988b7', color: 'white' }} // Estilização do botão
+                    style={{ backgroundColor: '#7988b7', color: 'white' }} 
                 >
                     Filtrar
                 </Button>

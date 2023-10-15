@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 interface DetalhesProfessoresProps {
-    disciplina: Row; // Suponho que você tenha uma interface Row que define a estrutura dos dados da disciplina
+    disciplina: Row; 
     onClose: () => void;
 }
 
@@ -18,7 +18,6 @@ const DetalhesProfessores: React.FC<DetalhesProfessoresProps> = ({ disciplina, o
                 <p className="text-black">Quantidade de Avaliações: {disciplina.quantidadeAvaliacoes}</p>
                 <p className="text-black">Nota Média: {disciplina.nota}</p>
                 <p className="text-black">Departamento: {disciplina.departamento}</p>
-                {/* Adicione outros detalhes conforme necessário */}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={onClose}>

@@ -184,7 +184,6 @@ app.post('/avaliar-professor', (req: Request, res: Response) => {
   });
 });
 
-
 // Rota para obter o tipo de usuário com base no ID
 app.get('/tipo-usuario/:id', (req: Request, res: Response) => {
   const userId = parseInt(req.params.id, 10); // Extrai o ID do parâmetro da URL
@@ -223,7 +222,7 @@ app.post('/aprovar-avaliacao/:avaliacaoId', (req: Request, res: Response) => {
   }
 
   const jwtOptions = {
-    
+
   };
 
   jwt.verify(token, segredo, jwtOptions, (err, decoded) => {
@@ -275,7 +274,7 @@ app.post('/aprovar-avaliacao/:avaliacaoId', (req: Request, res: Response) => {
 
 // Rota para listar avaliações pendentes
 app.get('/avaliacoes-pendentes', (req: Request, res: Response) => {
-  
+
   // Verifique o tipo de usuário com base no token JWT
   const token = req.headers['authorization'];
   if (!token) {
@@ -283,7 +282,7 @@ app.get('/avaliacoes-pendentes', (req: Request, res: Response) => {
   }
 
   const jwtOptions = {
-    
+
   };
 
   jwt.verify(token, segredo, jwtOptions, (err, decoded) => {

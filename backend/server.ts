@@ -140,37 +140,47 @@ app.post('/login', (req: Request, res: Response) => {
 
 // Rota para escrever avaliações sobre professores
 app.post('/avaliar-professor', (req: Request, res: Response) => {
-  const { alunoId, professorNome, professorMateria, professorUniversidade, semestre, nota, departamento, avaliacaoTexto } = req.body;
+  const { professorNome, professorMateria, professorUniversidade, semestre, nota, departamento, avaliacaoTexto } = req.body;
 
   // Valide os dados
-  if (!alunoId || !professorNome || !professorMateria || !professorUniversidade || !semestre || !nota || !departamento || !avaliacaoTexto) {
+  if (!professorNome || !professorMateria || !professorUniversidade || !semestre || !nota || !departamento || !avaliacaoTexto) {
     res.status(400).json({ mensagem: 'Todos os campos são obrigatórios' });
     return;
   }
 
-  // Verifique se o alunoId é válido, por exemplo, se existe no banco de dados
-  connection.execute('SELECT * FROM alunos WHERE id = ?', [alunoId], (error, results) => {
-    if (error) {
-      console.error(error);
-      res.status(500).json({ mensagem: 'Erro interno do servidor' });
-    } else if (Array.isArray(results) && results.length <= 0) {
-      res.status(404).json({ mensagem: 'Aluno não encontrado' });
-    } else {
-      // Crie um novo registro de avaliação no banco de dados
-      connection.execute(
-        'INSERT INTO avaliacoes_professores (aluno_id, professor_nome, professor_materia, professor_universidade, semestre, nota, departamento, avaliacao_texto, aprovada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, false)',
-        [alunoId, professorNome, professorMateria, professorUniversidade, semestre, nota, departamento, avaliacaoTexto],
-        (error, results) => {
-          if (error) {
-            console.error(error);
-            res.status(500).json({ mensagem: 'Erro interno do servidor' });
-          } else {
-            console.log('Avaliação do professor cadastrada com sucesso e aguardando aprovação');
-            res.status(200).json({ mensagem: 'Avaliação cadastrada com sucesso e aguardando aprovação' });
-          }
-        }
-      );
+  // Verifique o tipo de usuário no banco de dados com base no token JWT
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(401).json({ mensagem: 'Token não fornecido' });
+  }
+
+  const jwtOptions = {
+  };
+
+  jwt.verify(token, segredo, jwtOptions, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ mensagem: 'Token inválido' });
     }
+
+    const alunoId = (decoded as any).id;
+    if (alunoId === undefined) {
+      return res.status(401).json({ mensagem: 'Token inválido' });
+    }
+
+    // Crie um novo registro de avaliação no banco de dados
+    connection.execute(
+      'INSERT INTO avaliacoes_professores (aluno_id, professor_nome, professor_materia, professor_universidade, semestre, nota, departamento, avaliacao_texto, aprovada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, false)',
+      [alunoId, professorNome, professorMateria, professorUniversidade, semestre, nota, departamento, avaliacaoTexto],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ mensagem: 'Erro interno do servidor' });
+        } else {
+          console.log('Avaliação do professor cadastrada com sucesso e aguardando aprovação');
+          res.status(200).json({ mensagem: 'Avaliação cadastrada com sucesso e aguardando aprovação' });
+        }
+      }
+    );
   });
 });
 
@@ -321,6 +331,22 @@ app.get('/avaliacoes-pendentes', (req: Request, res: Response) => {
       }
     );
   });
+});
+
+// Rota para listar avaliações aprovadas
+app.get('/avaliacoes-aprovadas', (req: Request, res: Response) => {
+  // Consulta para listar avaliações pendentes de aprovação
+  connection.query(
+    'SELECT * FROM avaliacoes_professores WHERE aprovada = 1',
+    (error, results: any) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ mensagem: 'Erro interno do servidor' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
 });
 
 app.listen(port, () => {

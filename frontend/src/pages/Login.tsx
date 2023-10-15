@@ -26,7 +26,6 @@ export default function Login() {
             email: email,
             senha: password,
         };
-        console.log(loginData); 
         try {
             const response = await Axios.post('http://localhost:3000/login', loginData);
             const token = response.data.token;

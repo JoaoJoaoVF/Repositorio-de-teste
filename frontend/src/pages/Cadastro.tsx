@@ -55,21 +55,17 @@ export default function Cadastro() {
             universidade: formData.universidade,
         };
 
-        console.log('Dados enviados para a API:', dataToSend);
 
         try {
             const response = await axios.post('http://localhost:3000/registro', dataToSend);
 
             if (response.status === 200) {
                 navigate('/login'); 
-                console.log('Registro bem-sucedido');
             } else {
                 setError('Erro no registro.');
-                console.log('Erro no registro.');
             }
         } catch (error) {
             setError('Erro de rede ou servidor não disponível.');
-            console.log('Erro de rede ou servidor não disponível.');
         }
     };
 

@@ -348,6 +348,47 @@ app.get('/avaliacoes-aprovadas', (req: Request, res: Response) => {
   );
 });
 
+// Rota para obter os atributos do aluno com base no token
+app.get('/aluno', (req: Request, res: Response) => {
+  // Verifique se o token está presente nos cabeçalhos da solicitação
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(401).json({ mensagem: 'Token não fornecido' });
+  }
+
+  // Verifique o token e decodifique as informações do aluno
+  jwt.verify(token, segredo, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ mensagem: 'Token inválido' });
+    }
+
+    // Recupere o ID do aluno do token decodificado
+    const alunoId = (decoded as any).id;
+    if (alunoId === undefined) {
+      return res.status(401).json({ mensagem: 'Token inválido' });
+    }
+
+    // Consulta para obter os atributos do aluno com base no ID, incluindo o tipo
+    connection.execute(
+      'SELECT nome, email, curso, universidade, tipo FROM alunos WHERE id = ?',
+      [alunoId],
+      (error, results: any) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({ mensagem: 'Erro interno do servidor' });
+        } else if (results.length === 0) {
+          return res.status(404).json({ mensagem: 'Aluno não encontrado' });
+        } else {
+          // Retorne os atributos do aluno, incluindo o tipo
+          const aluno = results[0];
+          res.status(200).json(aluno);
+        }
+      }
+    );
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });

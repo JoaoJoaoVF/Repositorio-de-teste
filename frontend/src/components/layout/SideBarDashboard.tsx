@@ -7,13 +7,20 @@ export default function SideBarDashboard() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3000/tipo-usuario/0')
+        const token = localStorage.getItem('token');
+        fetch('http://localhost:3000/aluno', {
+            method: 'GET',
+            headers: {
+                'Authorization': token,
+            },
+        })
             .then(response => response.json())
             .then(data => {
                 setUser(data);
-                console.log(data); 
             })
-            .catch(error => console.error('Erro na solicitação:', error));
+            .catch(err => {
+                console.error(err);
+            });
     }, []);
 
     return (

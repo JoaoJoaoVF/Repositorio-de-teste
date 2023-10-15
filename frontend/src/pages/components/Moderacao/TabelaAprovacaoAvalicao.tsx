@@ -5,23 +5,22 @@ import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow'; // Corrigido
-import Paper from '@mui/material/Paper'; // Corrigido
-import TableSortLabel from '@mui/material/TableSortLabel'; // Corrigido
-import Button from '@mui/material/Button';
-import TextField from "@mui/material/TextField";
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TableSortLabel from '@mui/material/TableSortLabel';
 import TablePagination from '@mui/material/TablePagination';
-
 import DetalhesAvaliacao from './DetalhesAvaliacao';
 
-
 interface Row {
-    nomeUsuario: string;
-    nomeProfessor: string;
+    id: number;
+    aluno_id: number;
+    professor_nome: string;
+    professor_materia: string;
+    professor_universidade: string;
+    semestre: string;
     nota: number;
     departamento: string;
-    semestre: string;
-    comentario: string;
+    avaliacao_texto: string;
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -43,96 +42,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-const StyledTablePagination = styled(TablePagination)(({ theme }) => ({
-    '& .MuiTablePagination-toolbar': {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-}));
-
 export default function TabelaAprovacaoAvalicao() {
     const [rows, setRows] = useState<Row[]>([]);
-    const [initialRows, setInitialRows] = useState<Row[]>([]);
-    const [showDetails, setShowDetails] = useState<Row | null>(null);
-    const [avaliacoes, setAvaliacoes] = useState([]); // Inicializa o estado com um array vazio
-
     const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' }>({
         key: '',
         direction: 'ascending',
     });
 
-
-    // // Simule dados de exemplo
-    // const exemploDados: Row[] = [
-    //     {
-    //         nomeUsuario: 'João Silva',
-    //         nomeProfessor: 'Luiza de Melo',
-    //         nota: 8.5,
-    //         departamento: 'Ciências Exatas',
-    //         semestre: '2023/1',
-    //         comentario: 'Ótima professora, explica muito bem e é muito atenciosa com os alunos.'
-    //     },
-    //     {
-    //         nomeUsuario: 'Maria Souza',
-    //         nomeProfessor: 'Lucas Avelar',
-    //         nota: 7.2,
-    //         departamento: 'Ciências Humanas',
-    //         semestre: '2023/1',
-    //         comentario: 'Professor muito bom, mas as aulas são um pouco cansativas.'
-    //     },
-    // ];
+    const [showDetails, setShowDetails] = useState<Row | null>(null);
 
     const handleTableRowClick = (disciplina: Row) => {
-        // Abre o pop-up de detalhes quando uma linha da tabela é clicada
         setShowDetails(disciplina);
-    };
-
-    useEffect(() => {
-        // Função para buscar avaliações pendentes do servidor
-        const fetchAvaliacoesPendentes = () => {
-          fetch('http://localhost:3000/avaliacoes-pendentes', {
-            method: 'GET',
-            headers: {
-              'Authorization': 'SEU_TOKEN_JWT', // Substitua pelo seu token JWT
-            },
-          })
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error('Erro ao buscar as avaliações pendentes');
-              }
-            })
-            .then((data) => {
-              setAvaliacoes(data); // Define as avaliações obtidas do servidor no estado
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        };
-    
-        fetchAvaliacoesPendentes(); // Chama a função para buscar as avaliações quando o componente for montado
-      }, []); // O segundo argumento vazio garante que isso seja executado apenas uma vez
-    
-
-    const [openFilterDialog, setOpenFilterDialog] = useState(false);
-
-    const handleOpenFilterDialog = () => {
-        setOpenFilterDialog(true);
-    };
-
-    const handleCloseFilterDialog = () => {
-        setOpenFilterDialog(false);
-    };
-
-    const handleApplyFilters = (filteredRows: Row[]) => {
-        setRows(filteredRows);
-        handleCloseFilterDialog();
-    };
-
-    const clearFilters = () => {
-        setRows(initialRows);
-        handleCloseFilterDialog();
     };
 
     const sortData = (key: string) => {
@@ -143,23 +63,17 @@ export default function TabelaAprovacaoAvalicao() {
         setSortConfig({ key, direction });
 
         const sortedRows = [...rows].sort((a, b) => {
-            if (key === 'nomeProfessor') {
+            if (key === 'professor_nome') {
                 if (direction === 'ascending') {
-                    return a.nomeProfessor.localeCompare(b.nomeProfessor);
+                    return a.professor_nome.localeCompare(b.professor_nome);
                 } else {
-                    return b.nomeProfessor.localeCompare(a.nomeProfessor);
+                    return b.professor_nome.localeCompare(a.professor_nome);
                 }
-            } else if (key === 'nota') {
+            } else if (key === 'professor_materia') { // Alterado de 'nota' para 'professor_materia'
                 if (direction === 'ascending') {
-                    return a.nota - b.nota;
+                    return a.professor_materia.localeCompare(b.professor_materia);
                 } else {
-                    return b.nota - a.nota;
-                }
-            } else if (key === 'quantidadeAvaliacoes') {
-                if (direction === 'ascending') {
-                    return a.quantidadeAvaliacoes - b.quantidadeAvaliacoes;
-                } else {
-                    return b.quantidadeAvaliacoes - a.quantidadeAvaliacoes;
+                    return b.professor_materia.localeCompare(a.professor_materia);
                 }
             } else {
                 if (direction === 'ascending') {
@@ -173,21 +87,33 @@ export default function TabelaAprovacaoAvalicao() {
         setRows(sortedRows);
     };
 
-    const [searchQuery, setSearchQuery] = useState('');
+    useEffect(() => {
+        const token = localStorage.getItem('token');
 
-    const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const query = e.target.value;
-        setSearchQuery(query);
+        const fetchAvaliacoesPendentes = () => {
+            fetch('http://localhost:3000/avaliacoes-pendentes', {
+                method: 'GET',
+                headers: {
+                    'Authorization': token,
+                },
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Erro ao buscar as avaliações pendentes');
+                    }
+                })
+                .then((data) => {
+                    setRows(data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        };
 
-        const filteredRows = initialRows.filter((row) => {
-            return (
-                row.nomeProfessor.toLowerCase().includes(query.toLowerCase()) ||
-                row.departamento.toLowerCase().includes(query.toLowerCase())
-            );
-        });
-
-        setRows(filteredRows);
-    };
+        fetchAvaliacoesPendentes();
+    }, []);
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -205,36 +131,26 @@ export default function TabelaAprovacaoAvalicao() {
 
     return (
         <div className='container-fluid'>
-            {/* Restante do código permanece o mesmo */}
             <TableContainer component={Paper}>
                 <Table aria-label="tabela-professores">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>
                                 <TableSortLabel
-                                    active={sortConfig.key === 'nomeUsuario'}
-                                    direction={sortConfig.key === 'nomeUsuario' ? sortConfig.direction : 'ascending'}
-                                    onClick={() => sortData('nomeUsuario')}
-                                >
-                                    Nome do Usuário
-                                </TableSortLabel>
-                            </StyledTableCell>
-                            <StyledTableCell>
-                                <TableSortLabel
-                                    active={sortConfig.key === 'nomeProfessor'}
-                                    direction={sortConfig.key === 'nomeProfessor' ? sortConfig.direction : 'ascending'}
-                                    onClick={() => sortData('nomeProfessor')}
+                                    active={sortConfig.key === 'professor_nome'}
+                                    direction={sortConfig.key === 'professor_nome' ? sortConfig.direction : 'ascending'}
+                                    onClick={() => sortData('professor_nome')}
                                 >
                                     Nome do Professor
                                 </TableSortLabel>
                             </StyledTableCell>
                             <StyledTableCell>
                                 <TableSortLabel
-                                    active={sortConfig.key === 'nota'}
-                                    direction={sortConfig.key === 'nota' ? sortConfig.direction : 'ascending'}
-                                    onClick={() => sortData('nota')}
+                                    active={sortConfig.key === 'professor_materia'}
+                                    direction={sortConfig.key === 'professor_materia' ? sortConfig.direction : 'ascending'}
+                                    onClick={() => sortData('professor_materia')}
                                 >
-                                    Nota
+                                    Matéria
                                 </TableSortLabel>
                             </StyledTableCell>
                             <StyledTableCell>
@@ -260,9 +176,8 @@ export default function TabelaAprovacaoAvalicao() {
                     <TableBody>
                         {rowsOnPage.map((row, index) => (
                             <StyledTableRow key={index} onClick={() => handleTableRowClick(row)}>
-                                <TableCell>{row.nomeUsuario}</TableCell>
-                                <TableCell>{row.nomeProfessor}</TableCell>
-                                <TableCell>{row.nota}</TableCell>
+                                <TableCell>{row.professor_nome}</TableCell>
+                                <TableCell>{row.professor_materia}</TableCell>
                                 <TableCell>{row.departamento}</TableCell>
                                 <TableCell>{row.semestre}</TableCell>
                             </StyledTableRow>
@@ -281,7 +196,9 @@ export default function TabelaAprovacaoAvalicao() {
                 style={{ backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center' }}
             />
             {showDetails && (
-                <DetalhesAvaliacao disciplina={showDetails} onClose={() => setShowDetails(null)} />
+                <DetalhesAvaliacao 
+                disciplina={showDetails} 
+                onClose={() => setShowDetails(null)} />
             )}
         </div>
     );

@@ -11,6 +11,8 @@ const FormularioAvaliacaoProfessor = () => {
     universidade: '',
   });
 
+  const [mensagem, setMensagem] = useState(null);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -22,7 +24,6 @@ const FormularioAvaliacaoProfessor = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Construa um objeto com os dados do formulário
     const avaliacaoData = {
       professorNome: formData.nomeProfessor,
       professorMateria: formData.disciplina,
@@ -35,8 +36,7 @@ const FormularioAvaliacaoProfessor = () => {
 
     console.log('Dados da avaliação a serem enviados:', avaliacaoData);
     const token = localStorage.getItem('token');
-    
-    // Realize a solicitação POST para a rota da API
+
     fetch('http://localhost:3000/avaliar-professor', {
       method: 'POST',
       headers: {
@@ -45,20 +45,29 @@ const FormularioAvaliacaoProfessor = () => {
       },
       body: JSON.stringify(avaliacaoData),
     })
-
       .then((response) => response.json())
       .then((data) => {
         console.log('Resposta da API:', data);
-        // Redirecione o usuário ou realize alguma outra ação
+        if (data.mensagem === 'Avaliação cadastrada com sucesso e aguardando aprovação') {
+          setMensagem('Avaliação enviada com sucesso');
+        } else {
+          setMensagem('Erro ao enviar a avaliação');
+        }
       })
       .catch((error) => {
         console.error('Erro na solicitação:', error);
+        setMensagem('Erro ao enviar a avaliação');
       });
   };
 
   return (
     <div className="container-fluid">
       <div className="formulario-avaliacao">
+        {mensagem && (
+          <div className="alert alert-success" role="alert">
+            {mensagem}
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-6">

@@ -53,7 +53,6 @@ export default function TabelaDisciplinas() {
         direction: 'ascending',
     });
 
-    // Simule dados de exemplo
     const exemploDados: Row[] = [
         {
             disciplinaOfertada: 'Matemática',
@@ -69,31 +68,14 @@ export default function TabelaDisciplinas() {
             notaMedia: 7.2,
             departamento: 'Ciências Humanas',
         },
-        // Adicione mais linhas conforme necessário
     ];
 
     const handleTableRowClick = (disciplina: Row) => {
-        // Abre o pop-up de detalhes quando uma linha da tabela é clicada
         setShowDetails(disciplina);
     };
 
-    // Esqueleto para importar os dados do back
-    // useEffect(() => {
-    //     fetch()
-    //         .then((response) => response.json())
-    //         .then((data: Row[]) => {
-    //             setRows(data);
-    //             setInitialRows(data); 
-    //             console.log(data);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Erro ao carregar os dados:', error);
-    //         });
-    // }, []);
-
 
     useEffect(() => {
-        // Simule a carga de dados do back-end
         setRows(exemploDados);
         setInitialRows(exemploDados);
     }, []);

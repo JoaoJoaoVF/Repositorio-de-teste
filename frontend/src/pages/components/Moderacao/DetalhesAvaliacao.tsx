@@ -1,29 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@mui/material/Button';
 
 interface DetalhesAvaliacaoProps {
-    disciplina: Row; // Suponho que você tenha uma interface Row que define a estrutura dos dados da disciplina
+    disciplina: Row;
     onClose: () => void;
-    onAprovar: (avaliacaoId: number) => void; // Função para aprovar a disciplina
-    onReprovar: (avaliacaoId: number) => void; // Função para reprovar a disciplina
+    onAprovar: (avaliacaoId: number) => void;
+    onReprovar: (avaliacaoId: number) => void;
 }
 
 const DetalhesAvaliacao: React.FC<DetalhesAvaliacaoProps> = ({ disciplina, onClose, onAprovar, onReprovar }) => {
+    const token = localStorage.getItem('token');
+    const [avaliacaoAprovada, setAvaliacaoAprovada] = useState(false);
+
     const handleAprovar = () => {
-        // Substitua 'api_url' pela URL correta da sua API
         const api_url = `http://localhost:3000/aprovar-avaliacao/${disciplina.id}`;
 
         fetch(api_url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': token,
+                'Content-Type': 'application.json',
             },
         })
             .then((response) => {
                 if (response.ok) {
-                    onAprovar(disciplina.id); // Passe o ID da avaliação para a função onAprovar
-                    onClose();
+                    setAvaliacaoAprovada(true);
+                    onAprovar(disciplina.id); // Mova esta chamada após a confirmação de sucesso
                 } else {
                     console.error('Erro ao aprovar avaliação:', response);
                 }
@@ -31,51 +34,48 @@ const DetalhesAvaliacao: React.FC<DetalhesAvaliacaoProps> = ({ disciplina, onClo
     };
 
     const handleReprovar = () => {
-        // Substitua 'api_url' pela URL correta da sua API
-        const api_url = `http://localhost:3000/aprovar-avaliacao/${disciplina.id}`;
-
-        fetch(api_url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => {
-                if (response.ok) {
-                    onReprovar(disciplina.id); // Passe o ID da avaliação para a função onReprovar
-                    onClose();
-                } else {
-                    console.error('Erro ao reprovar avaliação:', response);
-                }
-            });
     };
 
+    const handleClose = () => {
+        if (avaliacaoAprovada) {
+            window.location.reload(); // Recarrega a página se a avaliação estiver aprovada
+        } else {
+            onClose(); // Fecha o modal normalmente
+        }
+    };
     return (
-        <Modal show={true} centered>
-            <Modal.Header closeButton onHide={onClose}>
+        <Modal show={true} centered onHide={handleClose}>
+            <Modal.Header closeButton>
                 <Modal.Title>Detalhes da Avaliação</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p className="text-black">Nome do Professor: {disciplina.nomeProfessor}</p>
-                <p className="text-black">Quantidade de Avaliações: {disciplina.quantidadeAvaliacoes}</p>
+                <p className="text-black">Nome do Professor: {disciplina.professor_nome}</p>
+                <p className="text-black">Matéria: {disciplina.professor_materia}</p>
                 <p className="text-black">Nota: {disciplina.nota}</p>
                 <p className="text-black">Departamento: {disciplina.departamento}</p>
-                <p className="text-black">Comentario: {disciplina.comentario}</p>
-                {/* Adicione outros detalhes conforme necessário */}
+                <p className="text-black">Comentário: {disciplina.avaliacao_texto}</p>
             </Modal.Body>
             <Modal.Footer>
-                <Button
-                    variant="contained"
-                    style={{ backgroundColor: 'green', color: 'white' }}
-                    onClick={handleAprovar}>
-                    Aprovar
-                </Button>
-                <Button
-                    variant="contained"
-                    style={{ backgroundColor: 'red', color: 'white' }}
-                    onClick={handleReprovar}>
-                    Reprovar
-                </Button>
+                {avaliacaoAprovada ? (
+                    <p>Avaliação aprovada com sucesso!</p>
+                ) : (
+                    <Button
+                        variant="contained"
+                        style={{ backgroundColor: 'green', color: 'white' }}
+                        onClick={handleAprovar}
+                    >
+                        Aprovar
+                    </Button>
+                )}
+                {!avaliacaoAprovada && (
+                    <Button
+                        variant="contained"
+                        style={{ backgroundColor: 'red', color: 'white' }}
+                        onClick={handleReprovar}
+                    >
+                        Reprovar
+                    </Button>
+                )}
             </Modal.Footer>
         </Modal>
     );

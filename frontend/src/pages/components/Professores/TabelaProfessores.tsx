@@ -19,8 +19,9 @@ import DetalhesProfessores from './DetalhesProfessores';
 interface Row {
     nomeProfessor: string;
     quantidadeAvaliacoes: number;
-    nota: number;
+    notaMedia: number;
     departamento: string;
+    comentarios: { texto: string; nota: number }[];
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -46,54 +47,86 @@ export default function TabelaProfessores() {
     const [rows, setRows] = useState<Row[]>([]);
     const [initialRows, setInitialRows] = useState<Row[]>([]);
     const [showDetails, setShowDetails] = useState<Row | null>(null);
-
+    const [comentarios, setComentarios] = useState<string[]>([]);
 
     const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' }>({
         key: '',
         direction: 'ascending',
     });
 
-    const exemploDados: Row[] = [
-        {
-            nomeProfessor: 'Luiza de Melo',
-            quantidadeAvaliacoes: 10,
-            nota: 8.5,
-            departamento: 'Ciências Exatas',
-        },
-        {
-            nomeProfessor: 'Lucas Avelar',
-            quantidadeAvaliacoes: 8,
-            nota: 7.2,
-            departamento: 'Ciências Humanas',
-        },
-    ];
-
-
-
     const handleTableRowClick = (disciplina: Row) => {
-        // Abre o pop-up de detalhes quando uma linha da tabela é clicada
         setShowDetails(disciplina);
     };
 
-    // Esqueleto para importar os dados do back
-    // useEffect(() => {
-    //     fetch()
-    //         .then((response) => response.json())
-    //         .then((data: Row[]) => {
-    //             setRows(data);
-    //             setInitialRows(data); 
-    //             console.log(data);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Erro ao carregar os dados:', error);
-    //         });
-    // }, []);
-
 
     useEffect(() => {
-        setRows(exemploDados);
-        setInitialRows(exemploDados);
+        const token = localStorage.getItem('token');
+
+        const fetchAvaliacoesPendentes = () => {
+            fetch('http://localhost:3000/avaliacoes-aprovadas', {
+                method: 'GET',
+                headers: {
+                    'Authorization': token,
+                },
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Erro ao buscar as avaliações aprovadas');
+                    }
+                })
+                .then((data) => {
+                    const professorMap = new Map<string, { notas: number[] }>();
+                    const professorComentariosMap = new Map<string, string[]>();
+
+                    data.forEach((item) => {
+                        const nomeProfessor = item.professor_nome;
+                        const nota = item.nota;
+                        const comentario = item.avaliacao_texto;
+
+                        if (!professorMap.has(nomeProfessor)) {
+                            professorMap.set(nomeProfessor, { notas: [nota] });
+                            professorComentariosMap.set(nomeProfessor, [comentario]);
+                        } else {
+                            professorMap.get(nomeProfessor)!.notas.push(nota);
+                            professorComentariosMap.get(nomeProfessor)!.push(comentario);
+                        }
+                    });
+
+                    const consolidatedRows: Row[] = [];
+                    professorMap.forEach((value, key) => {
+                        const quantidadeAvaliacoes = value.notas.length;
+                        const notaMedia = value.notas.reduce((a, b) => a + b, 0) / quantidadeAvaliacoes;
+
+                        const departamento = data.find((item) => item.professor_nome === key)?.departamento || 'Departamento Desconhecido';
+
+                        const comentarios = professorComentariosMap.get(key) || [];
+                        const professoresComNotas = comentarios.map((comentario, index) => ({
+                            texto: comentario,
+                            nota: value.notas[index], // Associando a nota ao comentário
+                        }));
+
+                        consolidatedRows.push({
+                            nomeProfessor: key,
+                            quantidadeAvaliacoes,
+                            notaMedia,
+                            departamento,
+                            comentarios: professoresComNotas, // Usando o array com notas associadas
+                        });
+                    });
+
+                    setRows(consolidatedRows);
+                    setInitialRows(consolidatedRows);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        };
+
+        fetchAvaliacoesPendentes();
     }, []);
+
 
     const [openFilterDialog, setOpenFilterDialog] = useState(false);
 
@@ -129,11 +162,11 @@ export default function TabelaProfessores() {
                 } else {
                     return b.nomeProfessor.localeCompare(a.nomeProfessor);
                 }
-            } else if (key === 'nota') {
+            } else if (key === 'notaMedia') {
                 if (direction === 'ascending') {
-                    return a.nota - b.nota;
+                    return a.notaMedia - b.notaMedia;
                 } else {
-                    return b.nota - a.nota;
+                    return b.notaMedia - a.notaMedia;
                 }
             } else if (key === 'quantidadeAvaliacoes') {
                 if (direction === 'ascending') {
@@ -198,7 +231,7 @@ export default function TabelaProfessores() {
                     variant="contained"
                     onClick={handleOpenFilterDialog}
                     className='col-md-2 mt-2'
-                    style={{ backgroundColor: '#7988b7', color: 'white' }} 
+                    style={{ backgroundColor: '#7988b7', color: 'white' }}
                 >
                     Filtrar
                 </Button>
@@ -218,9 +251,9 @@ export default function TabelaProfessores() {
                             </StyledTableCell>
                             <StyledTableCell>
                                 <TableSortLabel
-                                    active={sortConfig.key === 'nota'}
-                                    direction={sortConfig.key === 'nota' ? sortConfig.direction : 'ascending'}
-                                    onClick={() => sortData('nota')}
+                                    active={sortConfig.key === 'notaMedia'}
+                                    direction={sortConfig.key === 'notaMedia' ? sortConfig.direction : 'ascending'}
+                                    onClick={() => sortData('notaMedia')}
                                 >
                                     Nota média
                                 </TableSortLabel>
@@ -249,7 +282,7 @@ export default function TabelaProfessores() {
                         {rowsOnPage.map((row, index) => (
                             <StyledTableRow key={index} onClick={() => handleTableRowClick(row)}>
                                 <TableCell>{row.nomeProfessor}</TableCell>
-                                <TableCell>{row.nota}</TableCell>
+                                <TableCell>{row.notaMedia.toFixed(0)}</TableCell>
                                 <TableCell>{row.quantidadeAvaliacoes}</TableCell>
                                 <TableCell>{row.departamento}</TableCell>
                             </StyledTableRow>
@@ -275,8 +308,15 @@ export default function TabelaProfessores() {
                 rows={initialRows}
             />
             {showDetails && (
-                <DetalhesProfessores disciplina={showDetails} onClose={() => setShowDetails(null)} />
+                <DetalhesProfessores
+                    disciplina={showDetails}
+                    comentarios={showDetails.comentarios}
+                    notaMedia={showDetails.notaMedia}
+                    onClose={() => setShowDetails(null)}
+                /* Comentário aqui */
+                />
             )}
+
             <NovaAvaliacaoProfessor rows={rows} />
         </div>
     );

@@ -54,19 +54,180 @@ export default function TabelaDisciplinas() {
     });
 
     const exemploDados: Row[] = [
-        {
-            disciplinaOfertada: 'Matemática',
-            semestre: '2023/2',
-            quantidadeAvaliacoes: 10,
-            notaMedia: 8.5,
-            departamento: 'Ciências Exatas',
+                {
+            "disciplinaOfertada": "Calculo Diferencial e Integral I",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 19,
+            "notaMedia": 3.8,
+            "departamento": "Matematica"
         },
         {
-            disciplinaOfertada: 'História',
-            semestre: '2023/1',
-            quantidadeAvaliacoes: 8,
-            notaMedia: 7.2,
-            departamento: 'Ciências Humanas',
+            "disciplinaOfertada": "Calculo Diferencial e Integral II",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 20,
+            "notaMedia": 4.2,
+            "departamento": "Matematica"
+        },
+        {
+            "disciplinaOfertada": "Algebra A",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 34,
+            "notaMedia": 4.2,
+            "departamento": "Matematica"
+        },
+        {
+            "disciplinaOfertada": "Geometria Analitica e Algebra Linear",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 15,
+            "notaMedia": 4.5,
+            "departamento": "Matematica"
+        },
+        {
+            "disciplinaOfertada": "Estatistica e Probabilidades",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 8,
+            "notaMedia": 4.6,
+            "departamento": "Estatistica"
+        },
+        {
+            "disciplinaOfertada": "Etica Na Computacao",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 25,
+            "notaMedia": 4.3,
+            "departamento": "Ciencias Administrativas"
+        },
+        {
+            "disciplinaOfertada": "Economia A I",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 23,
+            "notaMedia": 4,
+            "departamento": "Ciencias Administrativas"
+        },
+        {
+            "disciplinaOfertada": "Algebra Linear Computacional",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 4,
+            "notaMedia": 4.3,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Introducao a Banco de Dados",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 18,
+            "notaMedia": 4.4,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Introducao Aos Sistemas Logicos",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 17,
+            "notaMedia": 4.2,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Organizacao de Computadores I",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 17,
+            "notaMedia": 4,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Algoritmos I",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 33,
+            "notaMedia": 4.1,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Linguagens de Programacao",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 10,
+            "notaMedia": 4.5,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Interacao Humano-Computador",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 24,
+            "notaMedia": 4.4,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Engenharia de Software I",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 20,
+            "notaMedia": 4.7,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Sistemas Operacionais",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 11,
+            "notaMedia": 4.2,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Engenharia de Software II",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 13,
+            "notaMedia": 4.4,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Programacao e Desenvolvimento de Software I",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 13,
+            "notaMedia": 4.5,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Introducao à Logica Computacional",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 14,
+            "notaMedia": 4.2,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Programacao e Desenvolvimento de Software II",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 23,
+            "notaMedia": 4.7,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Matematica Discreta",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 2,
+            "notaMedia": 4,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Fundamentos da Teoria da Computacao",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 13,
+            "notaMedia": 4.3,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Estruturas de Dados",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 27,
+            "notaMedia": 4.4,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Redes de Computadores",
+            "semestre": "2023\/1",
+            "quantidadeAvaliacoes": 13,
+            "notaMedia": 4,
+            "departamento": "Ciencia da Computacao"
+        },
+        {
+            "disciplinaOfertada": "Computacao e Sociedade",
+            "semestre": "2023\/2",
+            "quantidadeAvaliacoes": 29,
+            "notaMedia": 4.5,
+            "departamento": "Ciencia da Computacao"
         },
     ];
 
@@ -270,7 +431,7 @@ export default function TabelaDisciplinas() {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                style={{backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center'}}
+                style={{ backgroundColor: '#7988b7', color: 'white', display: 'flex', justifyContent: 'center' }}
             />
             <FiltroDisciplinas
                 open={openFilterDialog}

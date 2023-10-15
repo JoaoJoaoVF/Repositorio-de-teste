@@ -47,7 +47,7 @@ export default function Login() {
                 </Link>
                 <form onSubmit={handleSubmit}>
                     <div className='d-flex justify-content-center'>
-                        <img src={Logo} alt="logo" role="img" />
+                        <img src={Logo} alt="logo" role="img" width={600} height={300} />
                     </div>
                     <h1 className="h3 mb-5 fw-normal text-center text-#9582A1">Faça aqui seu login 🎉</h1>
                     {error && <div className="alert alert-danger">{error}</div>}

@@ -7,11 +7,11 @@ export default function SideBarDashboard() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3000/tipo-usuario/1')
+        fetch('http://localhost:3000/tipo-usuario/0')
             .then(response => response.json())
             .then(data => {
                 setUser(data);
-                console.log(data); // Adicione este console.log para verificar a resposta
+                console.log(data); 
             })
             .catch(error => console.error('Erro na solicitação:', error));
     }, []);

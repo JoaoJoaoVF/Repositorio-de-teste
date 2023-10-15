@@ -83,7 +83,7 @@ export default function Cadastro() {
                 </Link>
                 <form onSubmit={handleSubmit}>
                     <div className='d-flex justify-content-center'>
-                        <img src={Logo} alt="logo" role="img" />
+                        <img src={Logo} alt="logo" role="img" width={150} height={150} />
                     </div>
                     <h1 className="h3 mb-4 fw-normal text-center text-#9582A1">Faça seu cadastro :)</h1>
                     <p className="h3 mb-15 fw-normal text-center text-#173FBC">Junte-se à comunidade Unishare e desbloqueie seu potencial acadêmico!</p>

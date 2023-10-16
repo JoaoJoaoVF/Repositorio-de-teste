@@ -8,8 +8,8 @@ import Button from '@mui/material/Button';
 
 export default function FiltroProfessores({
   open,
-  onClose, 
-  onApplyFilters, 
+  onClose,
+  onApplyFilters,
   onClearFilters,
   rows,
 }) {
@@ -24,20 +24,20 @@ export default function FiltroProfessores({
 
     if (filterDisciplina) {
       filteredRows = filteredRows.filter((row) =>
-        row.nomeProfessor.toLowerCase().includes(filterDisciplina.toLowerCase()) 
+        row.nomeProfessor.toLowerCase().includes(filterDisciplina.toLowerCase())
       );
     }
 
     if (filterNotaMaiorQue) {
       const notaMaiorQue = parseFloat(filterNotaMaiorQue);
       if (!isNaN(notaMaiorQue)) {
-        filteredRows = filteredRows.filter((row) => row.nota > notaMaiorQue);
+        filteredRows = filteredRows.filter((row) => row.notaMedia > notaMaiorQue); // Altere para row.notaMedia
       }
     }
 
     if (filterSemestre) {
       filteredRows = filteredRows.filter((row) =>
-        row.departamento.toLowerCase().includes(filterSemestre.toLowerCase()) 
+        row.departamento.toLowerCase().includes(filterSemestre.toLowerCase())
       );
     }
 
@@ -54,15 +54,13 @@ export default function FiltroProfessores({
       }
     }
 
-    onApplyFilters(filteredRows); 
+    onApplyFilters(filteredRows);
   };
 
   return (
-    <Dialog open={open} onClose={onClose}> 
+    <Dialog open={open} onClose={onClose}>
       <DialogContent>
-        <DialogContentText>
-          Filtrar por:
-        </DialogContentText>
+        <DialogContentText>Filtrar por:</DialogContentText>
         <TextField
           label="Nome do Professor"
           value={filterDisciplina}

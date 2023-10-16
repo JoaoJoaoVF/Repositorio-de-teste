@@ -57,7 +57,7 @@ const DetalhesAvaliacao: React.FC<DetalhesAvaliacaoProps> = ({ disciplina, onClo
             </Modal.Body>
             <Modal.Footer>
                 {avaliacaoAprovada ? (
-                    <p>Avaliação aprovada com sucesso!</p>
+                    <p className='text-dark'>Avaliação aprovada com sucesso!</p>
                 ) : (
                     <Button
                         variant="contained"

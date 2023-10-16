@@ -118,3 +118,13 @@ Entre as principais features da plataforma estão:
 	- Realizar a pesquisa no banco de dados com base nos critérios da consulta [André] 
 	- Retornar os resultados da pesquisa para o cliente [André] 
 	- Exibir os resultados da pesquisa na interface [João]
+
+## Diagramas UML:
+
+### Classes
+
+![Diagrama UML de Classes](./frontend/src/assets/img/Diagrama%20de%20classes.jpg)
+
+### Atividade
+
+![Diagrama UML de Atividade](./frontend/src/assets/img/Diagrama%20de%20atividades.jpg)
